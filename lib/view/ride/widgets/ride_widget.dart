@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
@@ -26,7 +27,7 @@ class RideTileWidget extends StatelessWidget {
 
     return ListView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         itemCount: viewModel.rides!.rides!.length,
         itemBuilder: (context, index) {
           final ride = viewModel.rides!.rides![index];
@@ -89,6 +90,9 @@ class RideTileWidget extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.josefinSans().fontFamily,
+                    ),
                     children: [
                       TextSpan(
                         text: '$formattedDate | ',

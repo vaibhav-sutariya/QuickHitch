@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quick_hitch/configs/assets/image_assets.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
+import 'package:quick_hitch/configs/responsive.dart';
 
 class TripPostingRules extends StatelessWidget {
   const TripPostingRules({super.key});
@@ -9,50 +11,53 @@ class TripPostingRules extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: EdgeInsets.symmetric(horizontal: getScreenWidth(context) * 0.04),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Column(
-          spacing: 10,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'Rules for Posting a Trip',
               style: TextStyle(
-                fontSize: 14.0,
+                fontSize: getScreenWidth(context) * 0.04, // Scaled text size
                 fontWeight: FontWeight.w600,
                 color: AppColors.darkColor,
               ),
             ),
+            SizedBox(
+                height: getScreenHeight(context) * 0.015), // Dynamic spacing
             _buildRuleItem(
+                context,
                 'Confirm your Trip',
-                'Post your trip only if you are confident \nabout driving and can arrive on time',
+                'Post your trip only if you are confident about driving and can arrive on time.',
                 ImageAssets.oneRule,
                 AppColors.oneRule),
             _buildRuleItem(
+                context,
                 'Cash payments are not accepted',
-                'All transactions are processed online, \nwith drivers receiving payments post-trip.',
+                'All transactions are processed online, with drivers receiving payments post-trip.',
                 ImageAssets.twoRule,
                 AppColors.twoRule.withOpacity(0.1)),
             _buildRuleItem(
+                context,
                 'Safe Driving',
-                'Stick to speed limits and avoid using \nyour phone while driving.',
+                'Stick to speed limits and avoid using your phone while driving.',
                 ImageAssets.threeRule,
                 AppColors.threeRule.withOpacity(0.1)),
+            SizedBox(
+                height: getScreenHeight(context) * 0.02), // Dynamic spacing
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(getScreenWidth(context) * 0.04),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Transform.scale(
-                    scale: 1.2,
+                    scale: getScreenWidth(context) * 0.0035, // Scaled checkbox
                     child: Checkbox(
                       value: true,
                       onChanged: (value) {
-                        // setState(() {
-                        //   _isAcknowledged = value ?? false;
-                        // });
-                        // widget.onAcknowledged(_isAcknowledged);
+                        // Handle checkbox state change
                       },
                       activeColor: AppColors.darkColor,
                       shape: RoundedRectangleBorder(
@@ -60,30 +65,27 @@ class TripPostingRules extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: getScreenWidth(context) * 0.02),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
+                      padding: EdgeInsets.only(
+                          top: getScreenHeight(context) * 0.005),
                       child: RichText(
                         text: TextSpan(
                           style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.darkColor,
-                          ),
+                              fontSize: getScreenWidth(context) *
+                                  0.035, // Scaled text size
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkColor,
+                              fontFamily: GoogleFonts.josefinSans().fontFamily),
                           children: [
                             TextSpan(
                               text: 'I acknowledge and accept the ',
-                              style: TextStyle(
-                                  color: AppColors.darkColor,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14),
                             ),
                             TextSpan(
                               text: 'Terms and Conditions',
                               style: TextStyle(
-                                color: AppColors.darkColor,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.underline,
                               ),
                             ),
@@ -98,31 +100,36 @@ class TripPostingRules extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildRuleItem(
-      String title, String description, String image, Color color) {
+  Widget _buildRuleItem(BuildContext context, String title, String description,
+      String image, Color color) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Container(
-      height: 90, // Adjusted height
-      padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
+      margin: EdgeInsets.only(bottom: screenHeight * 0.015), // Dynamic margin
+      padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.03, vertical: screenHeight * 0.015),
       decoration: BoxDecoration(
-        color: color, // Soft background color
-        borderRadius: BorderRadius.circular(16.0), // More rounded corners
+        color: color,
+        borderRadius:
+            BorderRadius.circular(screenWidth * 0.04), // Scaled radius
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
             image,
-            height: 64.0, // Smaller icon size
-            width: 64.0,
+            height: screenHeight * 0.08, // Responsive image size
+            width: screenWidth * 0.16,
           ),
-          SizedBox(width: 12.0),
+          SizedBox(width: screenWidth * 0.03),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -131,19 +138,19 @@ class TripPostingRules extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 16.0, // Slightly larger font
-                    fontWeight: FontWeight.w500, // Bolder title
+                    fontSize: screenWidth * 0.045, // Scaled font size
+                    fontWeight: FontWeight.w500,
                     color: AppColors.darkColor,
                   ),
                 ),
-                SizedBox(height: 4.0),
+                SizedBox(height: screenHeight * 0.005),
                 Text(
                   description,
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: screenWidth * 0.035, // Scaled font size
                     fontWeight: FontWeight.w400,
                     color: AppColors.lightColor,
-                    height: 1.4, // Line height for readability
+                    height: 1.4,
                   ),
                 ),
               ],
