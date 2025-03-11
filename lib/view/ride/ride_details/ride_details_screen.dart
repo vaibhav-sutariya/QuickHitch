@@ -89,6 +89,7 @@ class RideDetailsScreen extends StatelessWidget {
                   text: 'Cancel trip',
                   onPressed: () {},
                 ),
+                SizedBox(height: 50),
               ],
             )
           ],

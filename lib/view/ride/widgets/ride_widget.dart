@@ -72,7 +72,7 @@ class RideTileWidget extends StatelessWidget {
     final formattedDate = dateFormat.format(departureDate);
     final formattedTime = timeFormat.format(departureDate);
 
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.pushNamed(
           context,
