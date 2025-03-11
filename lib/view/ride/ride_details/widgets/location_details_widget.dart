@@ -59,6 +59,7 @@ class LocationDetailsWidget extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LocationWidget extends StatelessWidget {
   Rides viewModel;
   LocationWidget({
