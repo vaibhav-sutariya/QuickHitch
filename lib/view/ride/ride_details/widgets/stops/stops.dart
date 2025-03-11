@@ -17,7 +17,7 @@ class Stops extends StatelessWidget {
 
     return ListView.builder(
       shrinkWrap: true,
-      // physics: NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       itemCount: fullStops.length - 1,
       itemBuilder: (context, index) {
         return _buildStopItem(context, fullStops[index], index);

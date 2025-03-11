@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:quick_hitch/configs/assets/icons_assets.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_outline_btn.dart';
+import 'package:quick_hitch/configs/responsive.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: SvgPicture.asset(
           IconsAssets.appbar,
-          width: 130,
+          width: getScreenWidth(context) * 0.1,
           height: 18,
         ),
         actions: [

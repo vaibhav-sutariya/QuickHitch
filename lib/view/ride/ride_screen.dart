@@ -17,7 +17,7 @@ class MyRideScreen extends StatelessWidget {
         builder: (context, viewModel, child) {
           return Scaffold(
             appBar: CustomAppBar(
-              isLeading: true,
+              isLeading: false,
               isAction: true,
               title: 'Rides',
             ),
