@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 
+// ignore: must_be_immutable
 class VehicleDetailsWidget extends StatelessWidget {
   PostRideViewModel viewModel;
   VehicleDetailsWidget({

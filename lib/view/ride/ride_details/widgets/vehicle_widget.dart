@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/model/rides/ride_model.dart';
 
+// ignore: must_be_immutable
 class VehicleWidget extends StatelessWidget {
   Rides ride;
   VehicleWidget({

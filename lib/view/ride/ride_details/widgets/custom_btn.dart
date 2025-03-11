@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 
+// ignore: must_be_immutable
 class CustomBtn extends StatelessWidget {
   final String text;
   final Function() onPressed;
@@ -14,7 +15,7 @@ class CustomBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onPressed,
       child: Column(
         children: [
