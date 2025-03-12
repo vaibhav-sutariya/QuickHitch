@@ -18,7 +18,7 @@ class DatePicker extends StatelessWidget {
           Text(
             'Departure Date (Optional)',
             style: TextStyle(
-              color: const Color(0xFF334155),
+              color: AppColors.darkColor,
               fontSize: 12,
               fontWeight: FontWeight.w600,
             ),

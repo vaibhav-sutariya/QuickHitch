@@ -2,8 +2,22 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quick_hitch/model/rides/ride_model.dart';
+import 'package:quick_hitch/repository/search_ride_repository/search_filter_repository.dart';
+import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class SearchRideViewModel with ChangeNotifier {
+  RideModel? _rides;
+  RideModel? get rides => _rides;
+
+  bool _getSearchAndFilterRidesLoading = false;
+  bool get getSearchAndFilterRidesLoading => _getSearchAndFilterRidesLoading;
+
+  setgetSearchAndFilterRidesLoading(bool value) {
+    _getSearchAndFilterRidesLoading = value;
+    notifyListeners();
+  }
+
   String? departureLocation;
   double? departureLat;
   double? departureLng;
@@ -74,5 +88,24 @@ class SearchRideViewModel with ChangeNotifier {
     log('Selected Seat: $seatNumber');
     _selectedSeat = seatNumber;
     notifyListeners();
+  }
+
+  Future<void> searchAndfilterRides() async {
+    try {
+      setgetSearchAndFilterRidesLoading(true);
+      String token = await getToken();
+
+      final String origin = departureLocation ?? '';
+      final String destination = destinationLocation ?? '';
+      final int emptySeats = selectedSeat;
+      final rides = await SearchFilterRepository()
+          .searchAndFilterRide(token, origin, destination, emptySeats);
+      _rides = rides;
+    } catch (e) {
+      log("Error search and filter rides: $e");
+    } finally {
+      setgetSearchAndFilterRidesLoading(false);
+      notifyListeners();
+    }
   }
 }

@@ -24,4 +24,5 @@ class AppUrl {
   static var makeEndPoint = '$baseUrl/vehicles/make';
   static var createRideEndPoint = '$baseUrl/user/rides';
   static var getRidesEndPoint = '$baseUrl/user/rides?status=';
+  static var searchAndFileterEndPoint = '$baseUrl/rides/search?';
 }
