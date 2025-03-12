@@ -23,7 +23,8 @@ class HomeScreen extends StatelessWidget {
           CustomOutlineBtn(
             text: 'Find',
             icon: Icons.search,
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, RoutesName.findRideScreen),
           ),
           const SizedBox(width: 10),
           CustomOutlineBtn(
