@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
-import 'package:quick_hitch/view/home/add_stops/widgets/stops_widget.dart';
+import 'package:quick_hitch/view/home/post/add_stops/widgets/stops_widget.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 
 class AddStopsScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
-import 'package:quick_hitch/view/home/view_ride/widgets/stop_view_widget.dart';
+import 'package:quick_hitch/view/home/post/view_ride/widgets/stop_view_widget.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 
 class YourStopWidget extends StatefulWidget {

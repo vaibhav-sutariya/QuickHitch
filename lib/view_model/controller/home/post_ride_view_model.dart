@@ -7,7 +7,7 @@ import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/configs/utils.dart';
 import 'package:quick_hitch/model/vehicles/vehicle_model.dart';
 import 'package:quick_hitch/repository/ride_repository/create_ride_repository.dart';
-import 'package:quick_hitch/view/home/post_ride/widgets/place_enter_field.dart';
+import 'package:quick_hitch/view/home/post/post_ride/widgets/place_enter_field.dart';
 import 'package:quick_hitch/view_model/controller/profile/vehicle/get_all_vehicle_view_model.dart';
 import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
