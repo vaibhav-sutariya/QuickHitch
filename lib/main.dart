@@ -25,6 +25,7 @@ import 'package:quick_hitch/view_model/controller/auth/social_sign_in/apple_sign
 import 'package:quick_hitch/view_model/controller/auth/social_sign_in/facebook_sign_in.dart';
 import 'package:quick_hitch/view_model/controller/auth/social_sign_in/google_sign_in.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
+import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/change_password/change_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/get_profile/get_user_profile_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/update_profile/update_profile_view_model.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => FindOneVehicleViewModel()),
         ChangeNotifierProvider(create: (_) => PostRideViewModel()),
         ChangeNotifierProvider(create: (_) => GetAllRidesViewModel()),
+        ChangeNotifierProvider(create: (_) => SearchRideViewModel()),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',

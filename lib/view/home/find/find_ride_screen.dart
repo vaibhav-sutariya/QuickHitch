@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quick_hitch/configs/colors/app_colors.dart';
+import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
-import 'package:quick_hitch/view/home/widgets/place_enter_field.dart';
+import 'package:quick_hitch/view/home/find/widgets/date_picker_widget.dart';
+import 'package:quick_hitch/view/home/find/widgets/text_fields_widget.dart';
+import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 
 class FindRideScreen extends StatelessWidget {
   const FindRideScreen({super.key});
@@ -15,32 +17,34 @@ class FindRideScreen extends StatelessWidget {
         isLeading: true,
         isAction: false,
       ),
-      body: Column(
-        children: [
-          CustomDivider(),
-          const SizedBox(height: 20),
-          Column(
+      body: Consumer<SearchRideViewModel>(
+        builder: (context, viewModel, child) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PlaceEnterField(
-                iconColor: AppColors.greenColor2,
-                hintText: 'Enter your location',
-                onLocationSelected: (location, lat, lng) {
-                  // viewModel.setDepartureLocation(location, lat, lng);
-                  // viewModel.setStopLocation(location, lat, lng);
-                },
-              ),
-              const SizedBox(height: 10),
-              PlaceEnterField(
-                iconColor: AppColors.redColor,
-                hintText: 'Enter destination location',
-                onLocationSelected: (location, lat, lng) {
-                  // viewModel.setDestinationLocation(location, lat, lng);
-                  // viewModel.setStopLocation(location, lat, lng);
-                },
+              CustomDivider(),
+              TextFieldsWidget(),
+              CustomDivider(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Text(
+                      'Departure Date (Optional)',
+                      style: TextStyle(
+                        color: const Color(0xFF334155),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(height: 50, child: DatePicker()),
+                  ],
+                ),
               ),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
