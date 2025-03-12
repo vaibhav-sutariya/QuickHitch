@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:quick_hitch/model/rides/ride_model.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
+import 'package:quick_hitch/model/home/search_ride_model.dart';
 import 'package:quick_hitch/repository/search_ride_repository/search_filter_repository.dart';
 import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class SearchRideViewModel with ChangeNotifier {
-  RideModel? _rides;
-  RideModel? get rides => _rides;
+  SearchRideModel? _rides;
+  SearchRideModel? get rides => _rides;
 
   bool _getSearchAndFilterRidesLoading = false;
   bool get getSearchAndFilterRidesLoading => _getSearchAndFilterRidesLoading;
@@ -77,7 +78,7 @@ class SearchRideViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> searchAndfilterRides() async {
+  Future<void> searchAndfilterRides(BuildContext context) async {
     try {
       setgetSearchAndFilterRidesLoading(true);
       String token = await getToken();
@@ -99,7 +100,15 @@ class SearchRideViewModel with ChangeNotifier {
           destinationLt,
           destinationLong,
           emptySeats);
+
       _rides = rides;
+      if (_rides!.rides!.isEmpty) {
+        log('No rides found');
+        Navigator.pushNamed(context, RoutesName.noRideScreen);
+      } else {
+        log('Rides found: ${_rides!.rides!.length}');
+        Navigator.pushNamed(context, RoutesName.rideFoundScreen);
+      }
     } catch (e) {
       log("Error search and filter rides: $e");
     } finally {

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
-import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/configs/utils.dart';
 import 'package:quick_hitch/view/home/find/widgets/date_picker_widget.dart';
 import 'package:quick_hitch/view/home/find/widgets/no_of_seats_widget.dart';
@@ -48,18 +47,8 @@ class FindRideScreen extends StatelessWidget {
                             'Please enter your location and destination',
                             context,
                           );
-                        }
-                        {
-                          viewModel.searchAndfilterRides();
-                          if (viewModel.rides == null ||
-                              viewModel.rides!.rides == null ||
-                              viewModel.rides!.rides!.isEmpty) {
-                            Navigator.pushNamed(
-                                context, RoutesName.noRideScreen);
-                          } else {
-                            Navigator.pushNamed(
-                                context, RoutesName.rideFoundScreen);
-                          }
+                        } else {
+                          viewModel.searchAndfilterRides(context);
                         }
                       }),
                 ),

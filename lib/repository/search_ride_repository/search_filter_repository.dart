@@ -4,10 +4,10 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:quick_hitch/configs/app_url.dart';
-import 'package:quick_hitch/model/rides/ride_model.dart';
+import 'package:quick_hitch/model/home/search_ride_model.dart';
 
 class SearchFilterRepository with ChangeNotifier {
-  Future<RideModel> searchAndFilterRide(
+  Future<SearchRideModel> searchAndFilterRide(
       String token,
       String origin,
       String originLat,
@@ -23,7 +23,7 @@ class SearchFilterRepository with ChangeNotifier {
       log("Search and filter rides Token: $token");
 
       final url = Uri.parse(
-          '${AppUrl.searchAndFileterEndPoint}origin=$origin&originLat=$originLat&originLong=$originLong&destination=$destination&destinationLat=$destinationLat&destinationLong=$destinationLong&minEmptySeats=$emptySeats&status=REQUESTED');
+          '${AppUrl.searchAndFileterEndPoint}origin=$origin&originLat=$originLat&originLong=$originLong&destination=$destination&destinationLat=$destinationLat&destinationLong=$destinationLong&minEmptySeats=$emptySeats&status=ACTIVE');
 
       final response = await http.get(
         url,
@@ -37,7 +37,7 @@ class SearchFilterRepository with ChangeNotifier {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         log("Search and filter Response: $responseData");
-        return RideModel.fromJson(responseData);
+        return SearchRideModel.fromJson(responseData);
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
