@@ -8,7 +8,14 @@ import 'package:quick_hitch/model/rides/ride_model.dart';
 
 class SearchFilterRepository with ChangeNotifier {
   Future<RideModel> searchAndFilterRide(
-      String token, String origin, String destination, int emptySeats) async {
+      String token,
+      String origin,
+      String originLat,
+      String originLong,
+      String destination,
+      String destinationLat,
+      String destinationLong,
+      int emptySeats) async {
     try {
       if (token.isEmpty) {
         throw Exception("Token is empty or null");
@@ -16,7 +23,7 @@ class SearchFilterRepository with ChangeNotifier {
       log("Search and filter rides Token: $token");
 
       final url = Uri.parse(
-          '${AppUrl.searchAndFileterEndPoint}origin=$origin&destination=$destination&minEmptySeats=$emptySeats&status=REQUESTED');
+          '${AppUrl.searchAndFileterEndPoint}origin=$origin&originLat=$originLat&originLong=$originLong&destination=$destination&destinationLat=$destinationLat&destinationLong=$destinationLong&minEmptySeats=$emptySeats&status=REQUESTED');
 
       final response = await http.get(
         url,

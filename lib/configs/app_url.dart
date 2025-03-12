@@ -25,4 +25,5 @@ class AppUrl {
   static var createRideEndPoint = '$baseUrl/user/rides';
   static var getRidesEndPoint = '$baseUrl/user/rides?status=';
   static var searchAndFileterEndPoint = '$baseUrl/rides/search?';
+  static var recentSearchEndPoint = '$baseUrl/rides/search-history';
 }

@@ -23,30 +23,31 @@ class FindRideScreen extends StatelessWidget {
       ),
       body: Consumer<SearchRideViewModel>(
         builder: (context, viewModel, child) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomDivider(),
-              TextFieldsWidget(
-                viewModel: viewModel,
-              ),
-              CustomDivider(),
-              SizedBox(
-                  height: getScreenHeight(context) * 0.11,
-                  child: DatePicker(
-                    viewModel: viewModel,
-                  )),
-              NoOfSeatsWidget(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: CustomElevatedButton(
-                    text: 'Search',
-                    press: () {
-                      viewModel.searchAndfilterRides();
-                    }),
-              ),
-              RecentSearchWidget(),
-            ],
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomDivider(),
+                TextFieldsWidget(viewModel: viewModel),
+                CustomDivider(),
+                SizedBox(
+                    height: getScreenHeight(context) * 0.11,
+                    child: DatePicker(
+                      viewModel: viewModel,
+                    )),
+                NoOfSeatsWidget(viewModel: viewModel),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CustomElevatedButton(
+                      text: 'Search',
+                      press: () {
+                        viewModel.searchAndfilterRides();
+                      }),
+                ),
+                SizedBox(height: 20),
+                RecentSearchWidget(),
+              ],
+            ),
           );
         },
       ),

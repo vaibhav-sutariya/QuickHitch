@@ -47,6 +47,7 @@ class SearchRideViewModel with ChangeNotifier {
 
     if (picked != null && picked != _selectedDate) {
       _selectedDate = picked;
+      log('Selected Date: $_selectedDate');
       notifyListeners(); // Notify UI
     }
   }
@@ -67,20 +68,6 @@ class SearchRideViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void pickDate(BuildContext context, {bool isReturnTrip = false}) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-
-    _selectedDate = pickedDate;
-    log('Departure Date: $_selectedDate');
-
-    notifyListeners();
-  }
-
   int _selectedSeat = 1;
   int get selectedSeat => _selectedSeat;
 
@@ -96,10 +83,21 @@ class SearchRideViewModel with ChangeNotifier {
       String token = await getToken();
 
       final String origin = departureLocation ?? '';
+      final String originLat = departureLat.toString();
+      final String originLong = departureLng.toString();
       final String destination = destinationLocation ?? '';
+      final String destinationLt = destinationLat.toString();
+      final String destinationLong = destinationLng.toString();
       final int emptySeats = selectedSeat;
-      final rides = await SearchFilterRepository()
-          .searchAndFilterRide(token, origin, destination, emptySeats);
+      final rides = await SearchFilterRepository().searchAndFilterRide(
+          token,
+          origin,
+          originLat,
+          originLong,
+          destination,
+          destinationLt,
+          destinationLong,
+          emptySeats);
       _rides = rides;
     } catch (e) {
       log("Error search and filter rides: $e");
