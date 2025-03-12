@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/view_model/controller/home/recent_search_view_model.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RecentSearchWidget extends StatelessWidget {
   const RecentSearchWidget({super.key});
@@ -29,40 +30,55 @@ class RecentSearchWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              viewModel.recentSearch?.data?.isNotEmpty ?? false
-                  ? SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: viewModel.recentSearch!.data!.length,
-                        itemBuilder: (context, index) {
-                          final data = viewModel.recentSearch!.data![index];
-                          return Column(
-                            spacing: 10,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
-                                child: Text(
-                                  '${data.origin.toString().split(',')[0]} to ${data.destination.toString().split(',')[0]}',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.darkColor,
-                                  ),
-                                ),
-                              ),
-                              CustomDivider(),
-                            ],
-                          );
-                        },
+              viewModel.getRecentSerchLoadingLoading
+                  ? Center(
+                      child: Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
                       ),
                     )
-                  : const Center(
-                      child: Text("No recent searches available"),
-                    ),
+                  : viewModel.recentSearch?.data?.isNotEmpty ?? false
+                      ? SizedBox(
+                          height: 200,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: viewModel.recentSearch!.data!.length,
+                            itemBuilder: (context, index) {
+                              final data = viewModel.recentSearch!.data![index];
+                              return Column(
+                                spacing: 10,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Text(
+                                      '${data.origin.toString().split(',')[0]} to ${data.destination.toString().split(',')[0]}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.darkColor,
+                                      ),
+                                    ),
+                                  ),
+                                  CustomDivider(),
+                                ],
+                              );
+                            },
+                          ),
+                        )
+                      : const Center(
+                          child: Text("No recent searches available"),
+                        ),
             ],
           );
         },
