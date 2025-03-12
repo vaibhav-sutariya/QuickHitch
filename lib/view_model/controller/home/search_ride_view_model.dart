@@ -81,6 +81,7 @@ class SearchRideViewModel with ChangeNotifier {
     try {
       setgetSearchAndFilterRidesLoading(true);
       String token = await getToken();
+      log('search filter token: $token');
 
       final String origin = departureLocation ?? '';
       final String originLat = departureLat.toString();

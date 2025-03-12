@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
-import 'package:quick_hitch/configs/responsive.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
+import 'package:quick_hitch/configs/utils.dart';
 import 'package:quick_hitch/view/home/find/widgets/date_picker_widget.dart';
 import 'package:quick_hitch/view/home/find/widgets/no_of_seats_widget.dart';
 import 'package:quick_hitch/view/home/find/widgets/recent_search_widget.dart';
@@ -30,18 +31,36 @@ class FindRideScreen extends StatelessWidget {
                 CustomDivider(),
                 TextFieldsWidget(viewModel: viewModel),
                 CustomDivider(),
-                SizedBox(
-                    height: getScreenHeight(context) * 0.11,
-                    child: DatePicker(
-                      viewModel: viewModel,
-                    )),
+                DatePicker(
+                  viewModel: viewModel,
+                ),
                 NoOfSeatsWidget(viewModel: viewModel),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: CustomElevatedButton(
-                      text: 'Search',
-                      press: () {
-                        viewModel.searchAndfilterRides();
+                      text: viewModel.getSearchAndFilterRidesLoading
+                          ? 'Searching...'
+                          : 'Search',
+                      press: () async {
+                        if (viewModel.departureLocation == null ||
+                            viewModel.destinationLocation == null) {
+                          return Utils.flushBarErrorMessage(
+                            'Please enter your location and destination',
+                            context,
+                          );
+                        }
+                        {
+                          viewModel.searchAndfilterRides();
+                          if (viewModel.rides == null ||
+                              viewModel.rides!.rides == null ||
+                              viewModel.rides!.rides!.isEmpty) {
+                            Navigator.pushNamed(
+                                context, RoutesName.noRideScreen);
+                          } else {
+                            Navigator.pushNamed(
+                                context, RoutesName.rideFoundScreen);
+                          }
+                        }
                       }),
                 ),
                 SizedBox(height: 20),

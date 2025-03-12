@@ -16,4 +16,5 @@ class IconsAssets {
   static const String driverPayout = 'assets/icons/payout.svg';
   static const String changePassword = 'assets/icons/change_pass.svg';
   static const String logout = 'assets/icons/logout.svg';
+  static const String noRideFound = 'assets/icons/no_ride_found.svg';
 }

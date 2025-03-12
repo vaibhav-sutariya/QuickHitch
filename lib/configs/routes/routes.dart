@@ -9,6 +9,8 @@ import 'package:quick_hitch/view/auth_view/sign_up/sign_up_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_welcome_screen.dart';
 import 'package:quick_hitch/view/bottom_nav_bar.dart';
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
+import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
+import 'package:quick_hitch/view/home/find/ride_found_screen.dart';
 import 'package:quick_hitch/view/home/home_screen.dart';
 import 'package:quick_hitch/view/home/post/add_stops/add_stops_screen.dart';
 import 'package:quick_hitch/view/home/post/post_ride/post_ride_screen.dart';
@@ -102,6 +104,12 @@ class Routes {
       case RoutesName.findRideScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => FindRideScreen());
+      case RoutesName.noRideScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => NoRideScreen());
+      case RoutesName.rideFoundScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => RideFoundScreen());
 
       // case RoutesName.login:
       //   return MaterialPageRoute(
