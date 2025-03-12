@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 
+// ignore: must_be_immutable
 class DatePicker extends StatelessWidget {
-  const DatePicker({super.key});
+  SearchRideViewModel viewModel;
+  DatePicker({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
-    final datePickerViewModel = Provider.of<SearchRideViewModel>(context);
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -25,7 +24,7 @@ class DatePicker extends StatelessWidget {
           ),
           SizedBox(height: 10),
           GestureDetector(
-            onTap: () => datePickerViewModel.selectDate(context),
+            onTap: () => viewModel.selectDate(context),
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -38,7 +37,7 @@ class DatePicker extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      datePickerViewModel.formattedDate,
+                      viewModel.formattedDate,
                       style: const TextStyle(
                         fontSize: 14,
                         color: AppColors.darkColor,

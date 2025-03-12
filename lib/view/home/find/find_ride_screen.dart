@@ -27,10 +27,15 @@ class FindRideScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomDivider(),
-              TextFieldsWidget(),
+              TextFieldsWidget(
+                viewModel: viewModel,
+              ),
               CustomDivider(),
               SizedBox(
-                  height: getScreenHeight(context) * 0.11, child: DatePicker()),
+                  height: getScreenHeight(context) * 0.11,
+                  child: DatePicker(
+                    viewModel: viewModel,
+                  )),
               NoOfSeatsWidget(),
               Padding(
                 padding: const EdgeInsets.all(16.0),

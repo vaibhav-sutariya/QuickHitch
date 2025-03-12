@@ -1,9 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/view/home/widgets/place_enter_field.dart';
+import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 
+// ignore: must_be_immutable
 class TextFieldsWidget extends StatelessWidget {
-  const TextFieldsWidget({super.key});
+  SearchRideViewModel viewModel;
+  TextFieldsWidget({super.key, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class TextFieldsWidget extends StatelessWidget {
             iconColor: AppColors.greenColor2,
             hintText: 'Enter your location',
             onLocationSelected: (location, lat, lng) {
-              // viewModel.setDepartureLocation(location, lat, lng);
+              viewModel.setDepartureLocation(location, lat, lng);
               // viewModel.setStopLocation(location, lat, lng);
             },
           ),
@@ -24,7 +27,7 @@ class TextFieldsWidget extends StatelessWidget {
             iconColor: AppColors.redColor,
             hintText: 'Enter destination location',
             onLocationSelected: (location, lat, lng) {
-              // viewModel.setDestinationLocation(location, lat, lng);
+              viewModel.setDestinationLocation(location, lat, lng);
               // viewModel.setStopLocation(location, lat, lng);
             },
           ),
