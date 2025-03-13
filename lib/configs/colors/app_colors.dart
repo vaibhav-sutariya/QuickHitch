@@ -7,6 +7,7 @@ class AppColors {
   static const Color whiteColor = Color(0xFFFDFEFF);
   static const Color blackColor = Colors.black;
   static const Color lightColor = Color(0xFF667185);
+  static const Color mediumColor = Color(0xFF64748B);
   static const Color borderColor = Color(0xFFCBD5E1);
   static const Color focusBorderColor = Color(0xFF1D4ED8);
   static const Color errorColor = Color(0xFFD23A35);
