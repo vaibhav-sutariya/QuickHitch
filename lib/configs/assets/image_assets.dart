@@ -7,4 +7,7 @@ class ImageAssets {
   static const String oneRule = 'assets/images/one_rule.svg';
   static const String twoRule = 'assets/images/two_rule.svg';
   static const String threeRule = 'assets/images/three_rule.svg';
+  static const String instOne = 'assets/images/inst_one.svg';
+  static const String instTwo = 'assets/images/inst_two.svg';
+  static const String instThree = 'assets/images/inst_three.svg';
 }

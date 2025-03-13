@@ -5,6 +5,7 @@ import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
 import 'package:quick_hitch/view/home/find/found_view/widgets/date_price_widget.dart';
 import 'package:quick_hitch/view/home/find/found_view/widgets/driver_widget.dart';
@@ -64,7 +65,15 @@ class FoundViewRideScreen extends StatelessWidget {
             child: Row(
               children: [
                 Expanded(
-                    child: CustomElevatedButton(text: 'Next', press: () {})),
+                  child: CustomElevatedButton(
+                    text: 'Next',
+                    press: () => Navigator.pushNamed(
+                      context,
+                      RoutesName.bookingInstructionScreen,
+                      arguments: ride,
+                    ),
+                  ),
+                ),
                 SizedBox(width: 20),
                 IconButton(
                   // iconSize: 30,

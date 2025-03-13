@@ -8,6 +8,7 @@ import 'package:quick_hitch/view/auth_view/sign_in/signin_welcome_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_welcome_screen.dart';
 import 'package:quick_hitch/view/bottom_nav_bar.dart';
+import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruction_screen.dart';
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
@@ -114,6 +115,11 @@ class Routes {
       case RoutesName.foundViewRideScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => FoundViewRideScreen(
+                  ride: settings.arguments as dynamic,
+                ));
+      case RoutesName.bookingInstructionScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => BookingInstructionScreen(
                   ride: settings.arguments as dynamic,
                 ));
 
