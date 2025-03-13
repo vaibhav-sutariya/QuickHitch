@@ -84,6 +84,8 @@ class FilterBottomSheet extends StatelessWidget {
               ),
 
               RangeSlider(
+                labels: RangeLabels(filterViewModel.minPrice.toInt().toString(),
+                    filterViewModel.maxPrice.toInt().toString()),
                 values: RangeValues(
                     filterViewModel.minPrice, filterViewModel.maxPrice),
                 min: 50,
