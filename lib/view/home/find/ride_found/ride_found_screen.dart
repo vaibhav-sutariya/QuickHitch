@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
-import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/view/home/find/ride_found/widgets/ride_tile_widget.dart';
 import 'package:quick_hitch/view/home/find/ride_found/widgets/search_toggle.dart';
@@ -13,10 +12,28 @@ class RideFoundScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Search Result',
-        isLeading: true,
-        isAction: false,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text(
+          'Search Result',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () => Navigator.pop(context),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(Icons.tune_outlined),
+              onPressed: () {},
+            ),
+          )
+        ],
       ),
       body: Consumer<SearchRideViewModel>(
         builder: (context, viewModel, child) {
@@ -47,6 +64,17 @@ class RideFoundScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        backgroundColor: AppColors.primaryColor,
+        onPressed: () {
+          // Navigator.pop(context);
+        },
+        child: const Icon(
+          Icons.add,
+          color: AppColors.whiteColor,
+        ),
       ),
     );
   }
