@@ -27,4 +27,5 @@ class RoutesName {
   static const String findRideScreen = 'find_ride_Screen';
   static const String noRideScreen = 'no_ride_Screen';
   static const String rideFoundScreen = 'ride_found_Screen';
+  static const String foundViewRideScreen = 'found_view_ride_Screen';
 }
