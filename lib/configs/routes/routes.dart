@@ -12,6 +12,7 @@ import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruct
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
+import 'package:quick_hitch/view/home/find/payment/payment_screen.dart';
 import 'package:quick_hitch/view/home/find/ride_found/ride_found_screen.dart';
 import 'package:quick_hitch/view/home/find/seat_price/seat_price_scren.dart';
 import 'package:quick_hitch/view/home/home_screen.dart';
@@ -126,6 +127,11 @@ class Routes {
       case RoutesName.seatPriceScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => SeatPriceScren(
+                  ride: settings.arguments as dynamic,
+                ));
+      case RoutesName.paymentScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => PaymentScreen(
                   ride: settings.arguments as dynamic,
                 ));
 

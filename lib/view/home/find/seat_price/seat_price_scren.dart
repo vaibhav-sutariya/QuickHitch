@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
 import 'package:quick_hitch/view/home/find/seat_price/widgets/billing_widget.dart';
 import 'package:quick_hitch/view/home/find/seat_price/widgets/custom_counter_widget.dart';
@@ -52,7 +53,14 @@ class SeatPriceScren extends StatelessWidget {
           // Button fixed at the bottom
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: CustomElevatedButton(text: 'Continue', press: () {}),
+            child: CustomElevatedButton(
+              text: 'Continue',
+              press: () => Navigator.pushNamed(
+                context,
+                RoutesName.paymentScreen,
+                arguments: ride,
+              ),
+            ),
           ),
         ],
       ),
