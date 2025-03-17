@@ -15,8 +15,8 @@ class SeatPriceScren extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String payout;
     log('SeatPriceScren: ${ride.origin.toString()}');
+
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Seat and Pricing',
@@ -24,37 +24,36 @@ class SeatPriceScren extends StatelessWidget {
         isAction: false,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomDivider(),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Seat and Pricing',
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomDivider(),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Seat and Pricing'),
+                        CustomCounterWidget(),
+                      ],
                     ),
-                    CustomCounterWidget(),
-                  ],
-                ),
+                  ),
+                  CustomDivider(),
+                  BillingWidget(ride: ride),
+                  CustomDivider(),
+                  PromocodeWidget(),
+                ],
               ),
-              CustomDivider(),
-              BillingWidget(
-                ride: ride,
-              ),
-              CustomDivider(),
-              PromocodeWidget(),
-            ],
+            ),
           ),
+          // Button fixed at the bottom
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: CustomElevatedButton(text: 'Continue', press: () {}),
-          )
+          ),
         ],
       ),
     );

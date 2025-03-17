@@ -64,38 +64,31 @@ class FilterBottomSheet extends StatelessWidget {
               // Price Range Slider
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Price Per Seat",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("\$${filterViewModel.minPrice.toInt()}",
-                            style: TextStyle(fontSize: 14)),
-                        Text("\$${filterViewModel.maxPrice.toInt()}",
-                            style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                  ],
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Price Per Seat",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 ),
               ),
 
               RangeSlider(
-                labels: RangeLabels(filterViewModel.minPrice.toInt().toString(),
-                    filterViewModel.maxPrice.toInt().toString()),
                 values: RangeValues(
                     filterViewModel.minPrice, filterViewModel.maxPrice),
                 min: 50,
                 max: 200,
                 activeColor: AppColors.blackColor,
-                inactiveColor: AppColors.borderColor,
+                inactiveColor: AppColors.lightColor.withOpacity(0.4),
+                divisions: 100,
+                labels: RangeLabels(
+                  "\$${filterViewModel.minPrice.toInt()}",
+                  "\$${filterViewModel.maxPrice.toInt()}",
+                ),
                 onChanged: (RangeValues values) {
                   filterViewModel.setPriceRange(values.start, values.end);
                 },
               ),
+
               SizedBox(height: 16),
               CustomDivider(),
 
@@ -120,7 +113,11 @@ class FilterBottomSheet extends StatelessWidget {
 
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CustomElevatedButton(text: 'Apply now', press: () {}),
+                child: CustomElevatedButton(
+                    text: 'Apply now',
+                    press: () {
+                      Navigator.pop(context);
+                    }),
               ),
             ],
           ),

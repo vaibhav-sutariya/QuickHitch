@@ -52,10 +52,12 @@ class BookingInstructionScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 300,
-                  child: Text(
-                      'I understand that violating these rules may lead to account suspension.'),
+                Expanded(
+                  child: SizedBox(
+                    width: 300,
+                    child: Text(
+                        'I understand that violating these rules may lead to account suspension.'),
+                  ),
                 ),
                 CustomSwitchWidget(),
               ],

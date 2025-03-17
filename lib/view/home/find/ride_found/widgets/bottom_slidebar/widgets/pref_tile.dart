@@ -78,7 +78,7 @@ class PrefTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: SizedBox(
-        width: 0.17 * getScreenWidth(context),
+        width: 0.15 * getScreenWidth(context),
         height: 40,
         child: Center(
           child: Text(
