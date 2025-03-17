@@ -7,7 +7,8 @@
     <application
         android:label="quick_hitch"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true"

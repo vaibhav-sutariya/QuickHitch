@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
@@ -22,6 +25,8 @@ class AddNewCardScreen extends StatelessWidget {
     } else {
       // Save the card details
       // viewModel.saveCardDetails(context);
+      viewModel.getStripeToken();
+      Utils.flushBarSuccessMessage('Card Added Successfully', context);
     }
   }
 
@@ -68,6 +73,52 @@ class AddNewCardScreen extends StatelessWidget {
                               hintText: 'Enter Card Holder Name',
                               onChanged: (value) {
                                 addNewCardViewModel.cardHolderName = value;
+                              },
+                            ),
+                            CardField(
+                              cvcHintText: '•••', // More realistic placeholder
+                              decoration: InputDecoration(
+                                labelText: 'CVC',
+                                hintText: 'Enter CVC',
+                                labelStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Colors.blueAccent, // Eye-catching label
+                                ),
+                                hintStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade500,
+                                ),
+                                prefixIcon: Icon(Icons.security,
+                                    color: Colors.blueAccent), // CVC icon
+                                filled: true,
+                                fillColor: Colors.white, // Background color
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      12), // Rounded corners
+                                  borderSide: BorderSide(
+                                      color: Colors.blueAccent, width: 1.5),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                      color: Colors.blueGrey.shade300,
+                                      width: 1.2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                      color: Colors.blueAccent, width: 2),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 16), // Better spacing
+                              ),
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                              onCardChanged: (card) {
+                                log('Card: $card');
                               },
                             ),
                           ],

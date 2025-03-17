@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 class AddNewCardViewModel with ChangeNotifier {
   String _cardNumber = "";
@@ -62,51 +63,15 @@ class AddNewCardViewModel with ChangeNotifier {
     return (sum % 10 == 0);
   }
 
-  DateTime? _expiryDate;
-  DateTime? get expiryDate => _expiryDate;
-
-  Future<void> selectExpiryDate(BuildContext context) async {
-    DateTime now = DateTime.now();
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: now,
-      firstDate: now,
-      lastDate: DateTime(now.year + 10),
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: Colors.blue,
-            hintColor: Colors.blueAccent,
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
-          ),
-          child: child!,
-        );
-      },
-    );
-
-    if (picked != null) {
-      _expiryDate = picked;
-      log('Expiry Date: ${picked.month}/${picked.year}');
-      notifyListeners();
-    }
-  }
-
-  String _cvv = ""; // Default to an empty string to prevent null errors.
+  String _cvv = "";
   String get cvv => _cvv;
 
   set cvv(String value) {
-    if (value.length <= 3) {
-      // CVV should be at most 3 digits
+    if (value.length <= 4) {
       _cvv = value;
       log('CVV: $_cvv');
       notifyListeners();
     }
-  }
-
-  /// Validates CVV (3-digit for most cards, 4-digit for AMEX)
-  bool isValidCVV(String cvv, {bool isAmex = false}) {
-    return isAmex ? cvv.length == 4 : cvv.length == 3;
   }
 
   String? _postalCode;
@@ -126,4 +91,72 @@ class AddNewCardViewModel with ChangeNotifier {
     log('Card Holder Name: $_cardHolderName');
     notifyListeners();
   }
+
+  DateTime? _expiryDate;
+  DateTime? get expiryDate => _expiryDate;
+
+  Future<void> selectExpiryDate(BuildContext context) async {
+    DateTime now = DateTime.now();
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: now,
+      lastDate: DateTime(now.year + 10),
+    );
+
+    if (picked != null) {
+      _expiryDate = picked;
+      notifyListeners();
+    }
+  }
+
+  /// Get Stripe Token for Card
+  /// Get Stripe Token for Card
+  Future<String?> getStripeToken() async {
+    try {
+      // Validate required fields
+      if (_cardNumber.isEmpty ||
+          _expiryDate == null ||
+          _cvv.isEmpty ||
+          _cardHolderName == null) {
+        log("Card details incomplete");
+        return null;
+      }
+
+      // Clean card number
+      final cleanCardNumber = cardNumber.replaceAll(' ', '');
+      final tokenData = await Stripe.instance.createToken(
+        CreateTokenParams.card(params: CardTokenParams()),
+      );
+
+      log('Stripe Token: ${tokenData.id}');
+      return tokenData.id;
+    } catch (e) {
+      log("Error getting Stripe token: $e");
+      return null;
+    }
+  }
+
+  /// Send Token to Backend API
+  // Future<void> _addCardToBackend(String cardToken) async {
+  //   const String apiUrl = "YOUR_API_BASE_URL/user/card";
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(apiUrl),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": "Bearer YOUR_BACKEND_API_KEY"
+  //       },
+  //       body: jsonEncode({"cardToken": cardToken}),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       log('Card added successfully: ${response.body}');
+  //     } else {
+  //       log('Failed to add card: ${response.body}');
+  //     }
+  //   } catch (e) {
+  //     log('Error sending card to backend: $e');
+  //   }
+  // }
 }

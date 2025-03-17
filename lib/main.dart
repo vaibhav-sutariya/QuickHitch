@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,12 +47,9 @@ GetIt getIt = GetIt.instance;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+  Stripe.publishableKey = dotenv.env['STRIPE_PUBLISHABLE_KEY']!;
+  await Stripe.instance.applySettings();
   getIt.registerLazySingleton<AuthRepository>(() => AuthRepository());
-  getIt.registerLazySingleton<GoogleSignInProvider>(
-      () => GoogleSignInProvider());
-  getIt.registerLazySingleton<FacebookSignInProvider>(
-      () => FacebookSignInProvider());
-  getIt.registerLazySingleton<AppleSignIn>(() => AppleSignIn());
   getIt.registerLazySingleton<ForgotPasswordRepository>(
       () => ForgotPasswordRepository());
   getIt.registerLazySingleton<BottomNavBarProvider>(
@@ -121,7 +119,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: GoogleFonts.josefinSans().fontFamily,
         ),
-        initialRoute: RoutesName.splash,
+        initialRoute: RoutesName.addNewCardScreen,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
