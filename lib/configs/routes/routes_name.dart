@@ -31,4 +31,5 @@ class RoutesName {
   static const String bookingInstructionScreen = 'booking_instruction_Screen';
   static const String seatPriceScreen = 'seat_price_Screen';
   static const String paymentScreen = 'payment_Screen';
+  static const String addNewCardScreen = 'add_new_card_Screen';
 }

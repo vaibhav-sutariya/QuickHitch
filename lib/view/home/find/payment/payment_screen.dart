@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -33,7 +34,10 @@ class PaymentScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: TextButton.icon(
-                onPressed: () {},
+                onPressed: () => Navigator.pushNamed(
+                  context,
+                  RoutesName.addNewCardScreen,
+                ),
                 label: Text(
                   'Add new card',
                   style: TextStyle(

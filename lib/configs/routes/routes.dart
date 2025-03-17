@@ -12,6 +12,7 @@ import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruct
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
+import 'package:quick_hitch/view/home/find/payment/add_new_card/add_new_card_screen.dart';
 import 'package:quick_hitch/view/home/find/payment/payment_screen.dart';
 import 'package:quick_hitch/view/home/find/ride_found/ride_found_screen.dart';
 import 'package:quick_hitch/view/home/find/seat_price/seat_price_scren.dart';
@@ -134,6 +135,9 @@ class Routes {
             builder: (BuildContext context) => PaymentScreen(
                   ride: settings.arguments as dynamic,
                 ));
+      case RoutesName.addNewCardScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => AddNewCardScreen());
 
       // case RoutesName.login:
       //   return MaterialPageRoute(
