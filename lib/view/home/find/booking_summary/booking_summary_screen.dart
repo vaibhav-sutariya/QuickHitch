@@ -87,11 +87,11 @@ class BookingSummaryScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20),
                   CustomDivider(),
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: InkWell(
-                      onTap: () => Navigator.pushNamed(
-                          context, RoutesName.paymetPoliciesScreen),
+                  InkWell(
+                    onTap: () => Navigator.pushNamed(
+                        context, RoutesName.paymetPoliciesScreen),
+                    child: Padding(
+                      padding: EdgeInsets.all(16),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
