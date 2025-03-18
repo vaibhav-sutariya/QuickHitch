@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:quick_hitch/repository/card_repository/add_card_repository.dart';
+import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class AddNewCardViewModel with ChangeNotifier {
   String _cardNumber = "";
@@ -112,7 +114,7 @@ class AddNewCardViewModel with ChangeNotifier {
 
   /// Get Stripe Token for Card
   /// Get Stripe Token for Card
-  Future<String?> getStripeToken() async {
+  Future<String?> getStripeToken(BuildContext context) async {
     try {
       // Validate required fields
       if (_cardNumber.isEmpty ||
@@ -124,12 +126,12 @@ class AddNewCardViewModel with ChangeNotifier {
       }
 
       // Clean card number
-      final cleanCardNumber = cardNumber.replaceAll(' ', '');
       final tokenData = await Stripe.instance.createToken(
         CreateTokenParams.card(params: CardTokenParams()),
       );
 
       log('Stripe Token: ${tokenData.id}');
+      _addCardToBackend(tokenData.id, context);
       return tokenData.id;
     } catch (e) {
       log("Error getting Stripe token: $e");
@@ -138,25 +140,26 @@ class AddNewCardViewModel with ChangeNotifier {
   }
 
   /// Send Token to Backend API
-  // Future<void> _addCardToBackend(String cardToken) async {
-  //   const String apiUrl = "YOUR_API_BASE_URL/user/card";
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(apiUrl),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Authorization": "Bearer YOUR_BACKEND_API_KEY"
-  //       },
-  //       body: jsonEncode({"cardToken": cardToken}),
-  //     );
+  Future<Map<String, dynamic>> _addCardToBackend(
+      String cardToken, BuildContext context) async {
+    try {
+      String token = await getToken();
+      var data = {
+        "cardToken": cardToken,
+      };
+      final response = await AddCardRepository().addCard(data, token);
+      log('Add Card Response: $response');
+      if (response['status'] == 201 ||
+          response['message'] == "Card added successfully") {
+        log("Card added successfully: $response");
 
-  //     if (response.statusCode == 200) {
-  //       log('Card added successfully: ${response.body}');
-  //     } else {
-  //       log('Failed to add card: ${response.body}');
-  //     }
-  //   } catch (e) {
-  //     log('Error sending card to backend: $e');
-  //   }
-  // }
+        return response;
+      } else {
+        throw Exception("Ride Create failed: ${response['message']}");
+      }
+    } catch (e) {
+      log('Error sending card to backend: $e');
+      throw Exception("Ride Create failed: $e");
+    }
+  }
 }

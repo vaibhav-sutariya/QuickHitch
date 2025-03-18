@@ -9,7 +9,7 @@ import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
 import 'package:quick_hitch/configs/components/custom_text_field.dart';
 import 'package:quick_hitch/configs/utils.dart';
 import 'package:quick_hitch/view/home/find/payment/add_new_card/widgets/date_cvv_widgets/date_cvv_widget.dart';
-import 'package:quick_hitch/view_model/controller/home/add_new_card_view_model.dart';
+import 'package:quick_hitch/view_model/controller/home/card_view_model/add_new_card_view_model.dart';
 
 class AddNewCardScreen extends StatelessWidget {
   const AddNewCardScreen({super.key});
@@ -25,8 +25,12 @@ class AddNewCardScreen extends StatelessWidget {
     } else {
       // Save the card details
       // viewModel.saveCardDetails(context);
-      viewModel.getStripeToken();
-      Utils.flushBarSuccessMessage('Card Added Successfully', context);
+      viewModel.getStripeToken(context).then((value) async {
+        if (value != null) {
+          await Future.delayed(Duration(seconds: 1));
+          Utils.flushBarSuccessMessage('Card added successfully.', context);
+        }
+      });
     }
   }
 

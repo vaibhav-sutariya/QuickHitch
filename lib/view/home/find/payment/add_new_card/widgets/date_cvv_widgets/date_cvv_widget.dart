@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
-import 'package:quick_hitch/view_model/controller/home/add_new_card_view_model.dart';
+import 'package:quick_hitch/view_model/controller/home/card_view_model/add_new_card_view_model.dart';
 
 class DateCvvWidget extends StatelessWidget {
   final AddNewCardViewModel addNewCardViewModel;
