@@ -22,4 +22,5 @@ class AppColors {
   static const Color oneRule = Color(0xFFE7ECFB);
   static const Color twoRule = Color(0xff40ca5e1a);
   static const Color threeRule = Color(0xfffbbc051a);
+  static const Color bgColor = Color(0xFFE9EEF3);
 }
