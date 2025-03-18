@@ -119,7 +119,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: GoogleFonts.josefinSans().fontFamily,
         ),
-        initialRoute: RoutesName.addNewCardScreen,
+        initialRoute: RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,
       ),
     );

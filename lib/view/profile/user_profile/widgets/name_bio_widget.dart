@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quick_hitch/configs/assets/image_assets.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/view_model/controller/profile/get_profile/get_user_profile_view_model.dart';
 
@@ -41,7 +42,9 @@ class NameBioWidget extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 40,
-                backgroundImage: Image.network(user.picture).image,
+                backgroundImage: user.picture == null
+                    ? AssetImage(ImageAssets.userImage)
+                    : Image.network(user.picture).image,
               ),
               const SizedBox(width: 16),
               Column(
