@@ -10,7 +10,7 @@ class PaymentPolicyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Booking Summary',
+        title: 'Payment Policies',
         isLeading: true,
         isAction: false,
       ),

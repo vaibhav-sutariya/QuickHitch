@@ -122,7 +122,8 @@ class BookingSummaryScreen extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             child: CustomElevatedButton(
               text: 'Confirm Request to Book',
-              press: () {},
+              press: () =>
+                  Navigator.pushNamed(context, RoutesName.bookingRequestScreen),
             ),
           ),
         ],

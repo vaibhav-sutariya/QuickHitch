@@ -18,4 +18,6 @@ class IconsAssets {
   static const String logout = 'assets/icons/logout.svg';
   static const String noRideFound = 'assets/icons/no_ride_found.svg';
   static const String visa = 'assets/logo/visa.svg';
+  static const String chat = 'assets/icons/chat.svg';
+  static const String waiting = 'assets/icons/waiting_room.svg';
 }
