@@ -6,6 +6,7 @@ import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
+import 'package:quick_hitch/view/home/find/payment/add_new_card/widgets/date_cvv_widgets/card_widget.dart';
 
 class PaymentScreen extends StatelessWidget {
   final Rides ride;
@@ -20,43 +21,46 @@ class PaymentScreen extends StatelessWidget {
         isLeading: true,
         isAction: false,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CustomDivider(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text('Select card for payment'),
-          ),
-          CustomDivider(),
-          Align(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextButton.icon(
-                onPressed: () => Navigator.pushNamed(
-                  context,
-                  RoutesName.addNewCardScreen,
-                ),
-                label: Text(
-                  'Add new card',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: AppColors.darkColor,
-                    fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CustomDivider(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text('Select card for payment'),
+            ),
+            CardWidget(),
+            CustomDivider(),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: TextButton.icon(
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    RoutesName.addNewCardScreen,
                   ),
-                ),
-                icon: Icon(
-                  Icons.add,
-                  color: AppColors.darkColor,
-                  size: 14,
+                  label: Text(
+                    'Add new card',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.darkColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  icon: Icon(
+                    Icons.add,
+                    color: AppColors.darkColor,
+                    size: 14,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 4),
-          CustomDivider(),
-        ],
+            SizedBox(height: 4),
+            CustomDivider(),
+          ],
+        ),
       ),
     );
   }
