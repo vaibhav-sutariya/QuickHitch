@@ -86,7 +86,43 @@ class PaymentScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: CustomElevatedButton(
                     text: 'Next',
-                    press: () {},
+                    press: () {
+                      if (viewModel.selectedCardId != null) {
+                        final selectedCard =
+                            viewModel.cardModel?.data?.firstWhere(
+                          (card) => card.id == viewModel.selectedCardId,
+                          // orElse: () => ,
+                        );
+
+                        if (selectedCard != null) {
+                          // Navigate to BookingSummaryScreen with both ride and card
+                          Navigator.pushNamed(
+                            context,
+                            RoutesName.bookingSummaryScreen,
+                            arguments: {
+                              'ride': ride,
+                              'card': selectedCard,
+                            },
+                          );
+                        } else {
+                          // Show error if no card is selected
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Please select a card for payment'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      } else {
+                        // Show error if no card is selected
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Please select a card for payment'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
+import 'package:quick_hitch/model/home/card_model.dart';
+import 'package:quick_hitch/model/home/search_ride_model.dart';
 import 'package:quick_hitch/model/vehicles/vehicle_model.dart';
 import 'package:quick_hitch/view/auth_view/forgot_password/forgot_password_screen.dart';
 import 'package:quick_hitch/view/auth_view/forgot_password/password_reset_link_screen.dart';
@@ -9,6 +11,7 @@ import 'package:quick_hitch/view/auth_view/sign_up/sign_up_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_welcome_screen.dart';
 import 'package:quick_hitch/view/bottom_nav_bar.dart';
 import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruction_screen.dart';
+import 'package:quick_hitch/view/home/find/booking_summary/booking_summary_screen.dart';
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
@@ -138,6 +141,14 @@ class Routes {
       case RoutesName.addNewCardScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => AddNewCardScreen());
+      case RoutesName.bookingSummaryScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (BuildContext context) => BookingSummaryScreen(
+            ride: args['ride'] as Rides,
+            card: args['card'] as CardDatas,
+          ),
+        );
 
       // case RoutesName.login:
       //   return MaterialPageRoute(

@@ -1,15 +1,15 @@
 class CardModel {
   String? message;
-  List<Data>? data;
+  List<CardDatas>? data;
 
   CardModel({this.message, this.data});
 
   CardModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <CardDatas>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(CardDatas.fromJson(v));
       });
     }
   }
@@ -24,7 +24,7 @@ class CardModel {
   }
 }
 
-class Data {
+class CardDatas {
   String? id;
   String? brand;
   String? last4;
@@ -32,7 +32,7 @@ class Data {
   int? expYear;
   bool? isDefault;
 
-  Data(
+  CardDatas(
       {this.id,
       this.brand,
       this.last4,
@@ -40,7 +40,7 @@ class Data {
       this.expYear,
       this.isDefault});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CardDatas.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     brand = json['brand'];
     last4 = json['last4'];
