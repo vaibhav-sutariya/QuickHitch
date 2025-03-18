@@ -73,4 +73,37 @@ class GetCardRepository with ChangeNotifier {
       throw Exception(e.toString());
     }
   }
+
+  Future<CardModel> deleteCard(String id, String token) async {
+    try {
+      if (token.isEmpty) {
+        throw Exception("Token is empty or null");
+      }
+      log("Get cards Token: $token");
+
+      final url = Uri.parse('${AppUrl.addCardEndPoint}/$id/delete');
+
+      final response = await http.delete(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+      );
+      log("Response Status Code: '${response.statusCode}'");
+      log("Response Body: '${response.body}'");
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        log("Delete Card Response: $responseData");
+        return CardModel.fromJson(responseData);
+      } else {
+        final errorData = jsonDecode(response.body);
+        throw Exception(
+            "Delete card failed: ${errorData['message'] ?? 'Unknown error'}");
+      }
+    } catch (e) {
+      log("Delete card Error: $e");
+      throw Exception(e.toString());
+    }
+  }
 }

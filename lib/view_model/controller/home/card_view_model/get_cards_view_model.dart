@@ -17,6 +17,13 @@ class GetCardsViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  String? selectedCardId;
+
+  void selectCard(String id) {
+    selectedCardId = id == selectedCardId ? null : id; // Toggle selection
+    notifyListeners();
+  }
+
   Future<void> getAllCards() async {
     try {
       setCardModelLoading(true);
@@ -40,11 +47,25 @@ class GetCardsViewModel with ChangeNotifier {
         "cardId": cardId,
       };
 
-      final recentSearches =
-          await GetCardRepository().setDefaultCard(data, token);
-      _cardModel = recentSearches;
+      final card = await GetCardRepository().setDefaultCard(data, token);
+      _cardModel = card;
     } catch (e) {
       log("Error set default card: $e");
+    } finally {
+      setCardModelLoading(false);
+      notifyListeners();
+    }
+  }
+
+  Future<void> deleteCard(String id) async {
+    try {
+      setCardModelLoading(true);
+      String token = await getToken();
+
+      final card = await GetCardRepository().deleteCard(id, token);
+      _cardModel = card;
+    } catch (e) {
+      log("Error Delete card: $e");
     } finally {
       setCardModelLoading(false);
       notifyListeners();
