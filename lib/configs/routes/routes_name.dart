@@ -35,4 +35,5 @@ class RoutesName {
   static const String bookingSummaryScreen = 'booking_summary_Screen';
   static const String paymetPoliciesScreen = 'paymet_policies_Screen';
   static const String bookingRequestScreen = 'booking_request_Screen';
+  static const String bookingDetailsScreen = 'booking_details_Screen';
 }

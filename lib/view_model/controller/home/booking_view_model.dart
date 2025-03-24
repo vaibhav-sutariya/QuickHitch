@@ -80,12 +80,20 @@ class BookingViewModel with ChangeNotifier {
           response['message'] == "Booking created successfully") {
         log("Booking Successfully: $response");
         Utils.flushBarSuccessMessage('Booking created Successfully', context);
+        log('-------------------------------------------------------------\n');
+        log('id: ${response['data']['id']}');
+        log('rideId: ${response['data']['rideId']}');
+        log('rideStopId: ${response['data']['rideStopId']}');
+        log('riderId: ${response['data']['riderId']}');
+        log('-----------------------------------------------------------\n');
 
         await Future.delayed(Duration(seconds: 1));
 
-        // ✅ Navigate and do not return response after this point
         Navigator.pushNamedAndRemoveUntil(
-            context, RoutesName.bookingRequestScreen, (route) => false);
+            context,
+            RoutesName.bookingRequestScreen,
+            arguments: response['data']['id'],
+            (route) => false);
       } else {
         log("Booking Error: $response");
         Utils.flushBarErrorMessage('Booking Failed', context);

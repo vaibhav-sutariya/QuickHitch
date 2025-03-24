@@ -10,6 +10,7 @@ import 'package:quick_hitch/view/auth_view/sign_in/signin_welcome_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_screen.dart';
 import 'package:quick_hitch/view/auth_view/sign_up/sign_up_welcome_screen.dart';
 import 'package:quick_hitch/view/bottom_nav_bar.dart';
+import 'package:quick_hitch/view/home/find/booking_details/booking_details_screen.dart';
 import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruction_screen.dart';
 import 'package:quick_hitch/view/home/find/booking_request_screen/booking_request_screen.dart';
 import 'package:quick_hitch/view/home/find/booking_summary/booking_summary_screen.dart';
@@ -156,7 +157,14 @@ class Routes {
             builder: (BuildContext context) => PaymentPolicyScreen());
       case RoutesName.bookingRequestScreen:
         return MaterialPageRoute(
-            builder: (BuildContext context) => BookingRequestScreen());
+            builder: (BuildContext context) => BookingRequestScreen(
+                  bookingId: settings.arguments as String,
+                ));
+      case RoutesName.bookingDetailsScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => BookingDetailsScreen(
+                  bookingId: settings.arguments as String,
+                ));
       // case RoutesName.login:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const LoginView());

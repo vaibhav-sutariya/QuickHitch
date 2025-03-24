@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:quick_hitch/configs/assets/icons_assets.dart';
@@ -5,12 +7,15 @@ import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_elevated_button.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 
 class BookingRequestScreen extends StatelessWidget {
-  const BookingRequestScreen({super.key});
+  final String bookingId;
+  const BookingRequestScreen({super.key, required this.bookingId});
 
   @override
   Widget build(BuildContext context) {
+    log('Booking Request Screen $bookingId');
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Booking Request',
@@ -49,7 +54,11 @@ class BookingRequestScreen extends StatelessWidget {
                 padding: EdgeInsets.all(16),
                 child: CustomElevatedButton(
                   text: 'Done',
-                  press: () {},
+                  press: () => Navigator.pushNamed(
+                    context,
+                    RoutesName.bookingDetailsScreen,
+                    arguments: bookingId,
+                  ),
                 ),
               ),
             ],
