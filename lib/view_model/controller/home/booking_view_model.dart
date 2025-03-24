@@ -64,34 +64,35 @@ class BookingViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Map<String, dynamic>> createBookings(
-      BuildContext context, String stopId) async {
+  Future<void> createBookings(BuildContext context, String stopId) async {
     try {
       String token = await getToken();
 
       var data = {
         "stopId": stopId,
         "noOfSeats": counter,
-        // "cardId ": 'pm_1R3uHoCHP9n56jrnw1XxX25d',
       };
 
       final response =
           await CreateBookingRepository().createBooking(data, token);
-      // ✅ Check response status correctly
+
       if (response['status'] == 201 ||
-          response['message'] == "Ride Booking successfully") {
+          response['message'] == "Booking created successfully") {
         log("Booking Successfully: $response");
-        Utils.flushBarSuccessMessage('Booking SuccessFully', context);
+        Utils.flushBarSuccessMessage('Booking created Successfully', context);
+
         await Future.delayed(Duration(seconds: 1));
+
+        // ✅ Navigate and do not return response after this point
         Navigator.pushNamedAndRemoveUntil(
-            context, RoutesName.bottomNavBar, (route) => false);
-        return response;
+            context, RoutesName.bookingRequestScreen, (route) => false);
       } else {
-        throw Exception("Booking failed: ${response['message']}");
+        log("Booking Error: $response");
+        Utils.flushBarErrorMessage('Booking Failed', context);
       }
     } catch (e) {
-      log("Booking Error: $e"); // Add this log
-      throw Exception("Booking failed: $e");
-    } finally {}
+      log("Booking Error: $e");
+      Utils.flushBarErrorMessage("Booking failed: $e", context);
+    }
   }
 }
