@@ -59,7 +59,9 @@ class NameBioWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${user.gender}, $userAge years old',
+                    user.gender == null && userAge == null
+                        ? '...'
+                        : '${user.gender}, $userAge years old',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -80,7 +82,7 @@ class NameBioWidget extends StatelessWidget {
             ),
           ),
           Text(
-            user.bio,
+            user.bio ?? '...',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,

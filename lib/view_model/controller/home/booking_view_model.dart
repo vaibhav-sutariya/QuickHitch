@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/configs/utils.dart';
+import 'package:quick_hitch/repository/booking_repository/create_booking_repository.dart';
+import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class BookingViewModel with ChangeNotifier {
   bool _isSwitched = false;
@@ -57,5 +62,36 @@ class BookingViewModel with ChangeNotifier {
   void clearError() {
     setError = '';
     notifyListeners();
+  }
+
+  Future<Map<String, dynamic>> createBookings(
+      BuildContext context, String stopId) async {
+    try {
+      String token = await getToken();
+
+      var data = {
+        "stopId": stopId,
+        "noOfSeats": counter,
+        // "cardId ": 'pm_1R3uHoCHP9n56jrnw1XxX25d',
+      };
+
+      final response =
+          await CreateBookingRepository().createBooking(data, token);
+      // ✅ Check response status correctly
+      if (response['status'] == 201 ||
+          response['message'] == "Ride Booking successfully") {
+        log("Booking Successfully: $response");
+        Utils.flushBarSuccessMessage('Booking SuccessFully', context);
+        await Future.delayed(Duration(seconds: 1));
+        Navigator.pushNamedAndRemoveUntil(
+            context, RoutesName.bottomNavBar, (route) => false);
+        return response;
+      } else {
+        throw Exception("Booking failed: ${response['message']}");
+      }
+    } catch (e) {
+      log("Booking Error: $e"); // Add this log
+      throw Exception("Booking failed: $e");
+    } finally {}
   }
 }

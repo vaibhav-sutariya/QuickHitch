@@ -119,13 +119,18 @@ class BookingSummaryScreen extends StatelessWidget {
           ),
 
           /// Fixed Button at the Bottom
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: CustomElevatedButton(
-              text: 'Confirm Request to Book',
-              press: () =>
-                  Navigator.pushNamed(context, RoutesName.bookingRequestScreen),
-            ),
+          Consumer<BookingViewModel>(
+            builder: (context, viewModel, child) {
+              return Padding(
+                padding: EdgeInsets.all(16.0),
+                child: CustomElevatedButton(
+                    text: 'Confirm Request to Book',
+                    press: () {
+                      log('card token: ${card.id}');
+                      viewModel.createBookings(context, ride.id.toString());
+                    }),
+              );
+            },
           ),
         ],
       ),
