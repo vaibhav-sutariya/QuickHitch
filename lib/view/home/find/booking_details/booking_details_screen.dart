@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/view/home/find/booking_details/widgets/b_details_widget.dart';
 import 'package:quick_hitch/view/home/find/booking_details/widgets/booking_ride_details_widget.dart';
 import 'package:quick_hitch/view/home/find/booking_details/widgets/custom_tile.dart';
@@ -78,8 +79,12 @@ class BookingDetailsScreen extends StatelessWidget {
                 CustomTile(
                   isLast: true,
                   color: AppColors.redColor,
-                  text: 'Withdraw Booking',
-                  onPressed: () {},
+                  text: 'Cancel Booking',
+                  onPressed: () => Navigator.pushNamed(
+                    context,
+                    RoutesName.cancelBookingScreen,
+                    arguments: data,
+                  ),
                 ),
               ],
             ),

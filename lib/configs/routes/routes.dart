@@ -15,6 +15,7 @@ import 'package:quick_hitch/view/home/find/booking_instructions/booking_instruct
 import 'package:quick_hitch/view/home/find/booking_request_screen/booking_request_screen.dart';
 import 'package:quick_hitch/view/home/find/booking_summary/booking_summary_screen.dart';
 import 'package:quick_hitch/view/home/find/booking_summary/payment_policy_screen.dart';
+import 'package:quick_hitch/view/home/find/cancel_booking/cancel_booking_screen.dart';
 import 'package:quick_hitch/view/home/find/find_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
@@ -164,6 +165,11 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => BookingDetailsScreen(
                   bookingId: settings.arguments as String,
+                ));
+      case RoutesName.cancelBookingScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => CancelBookingScreen(
+                  booking: settings.arguments as dynamic,
                 ));
       // case RoutesName.login:
       //   return MaterialPageRoute(
