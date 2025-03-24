@@ -89,11 +89,11 @@ class BookingViewModel with ChangeNotifier {
 
         await Future.delayed(Duration(seconds: 1));
 
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            RoutesName.bookingRequestScreen,
-            arguments: response['data']['id'],
-            (route) => false);
+        Navigator.pushNamed(
+          context,
+          RoutesName.bookingRequestScreen,
+          arguments: response['data']['id'],
+        );
       } else {
         log("Booking Error: $response");
         Utils.flushBarErrorMessage('Booking Failed', context);

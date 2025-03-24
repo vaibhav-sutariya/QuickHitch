@@ -8,8 +8,6 @@ class BDetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final price = data.ride!.pricePerSeat! * data.noOfSeats!;
-    final total = price + 2;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -37,7 +35,7 @@ class BDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${price.toString()}.00',
+                '\$${data.originalAmount}.00',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -59,7 +57,7 @@ class BDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${total.toString()}.00',
+                '\$${data.platformFee}.00',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -81,7 +79,7 @@ class BDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${total.toString()}.00',
+                '\$${data.totalAmount}.00',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
