@@ -57,7 +57,7 @@ class BDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${data.platformFee}.00',
+                '\$${data.platformFee!.toDouble()}.00',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -79,7 +79,7 @@ class BDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${data.totalAmount}.00',
+                '\$${data.totalAmount!.toDouble()}.00',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
