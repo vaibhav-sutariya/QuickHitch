@@ -1,12 +1,12 @@
 class BookingDetailsModel {
   String? message;
-  Data? data;
+  BookingData? data;
 
   BookingDetailsModel({this.message, this.data});
 
   BookingDetailsModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? BookingData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -19,7 +19,7 @@ class BookingDetailsModel {
   }
 }
 
-class Data {
+class BookingData {
   String? id;
   String? rideId;
   String? rideStopId;
@@ -52,7 +52,7 @@ class Data {
   int? platformFeePercentage;
   int? discountPercentage;
 
-  Data(
+  BookingData(
       {this.id,
       this.rideId,
       this.rideStopId,
@@ -85,7 +85,7 @@ class Data {
       this.platformFeePercentage,
       this.discountPercentage});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  BookingData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     rideId = json['rideId'];
     rideStopId = json['rideStopId'];
