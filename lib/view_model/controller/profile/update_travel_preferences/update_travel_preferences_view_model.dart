@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:quick_hitch/repository/profile_repository/update_travel_preference_repository.dart';
-import 'package:quick_hitch/view_model/services/session_manager.dart/session_controller.dart';
+import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class UpdateTravelPreferencesViewModel with ChangeNotifier {
   UpdateTravelPreferenceRepository repository =
@@ -30,8 +30,7 @@ class UpdateTravelPreferencesViewModel with ChangeNotifier {
   }
 
   Future<Map<String, int>> updateTravelPreferences() async {
-    final token =
-        await SessionController().sharedPreferenceClass.readValue('token');
+    final token = await getToken();
 
     String dialog = _preferences['Conversation'].toString();
     if (_preferences['Conversation'] == 0) {

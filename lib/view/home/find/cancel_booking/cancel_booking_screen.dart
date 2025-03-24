@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/model/bookings/booking_details_model.dart';
 import 'package:quick_hitch/view/home/find/cancel_booking/widgets/drive_widget.dart';
+import 'package:quick_hitch/view_model/controller/bookings/cancel_booking_view_model.dart';
 
 class CancelBookingScreen extends StatelessWidget {
   final BookingData booking;
@@ -63,28 +65,36 @@ class CancelBookingScreen extends StatelessWidget {
               spacing: 32,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      iconColor: AppColors.whiteColor,
-                      backgroundColor: AppColors.greenColor2,
-                      // minimumSize: Size(152, 40),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {},
-                    label: Text(
-                      'Yes',
-                      style: TextStyle(
-                        color: AppColors.whiteColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    icon: Icon(Icons.check_circle_outline),
-                    iconAlignment: IconAlignment.end,
-                  ),
+                Consumer<CancelBookingViewModel>(
+                  builder: (context, viewModel, child) {
+                    return Expanded(
+                      child: viewModel.updateCancelBookingLoading
+                          ? CircularProgressIndicator()
+                          : ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                iconColor: AppColors.whiteColor,
+                                backgroundColor: AppColors.greenColor2,
+                                // minimumSize: Size(152, 40),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              onPressed: () {
+                                viewModel.cancelBooking(context, booking.id!);
+                              },
+                              label: Text(
+                                'Yes',
+                                style: TextStyle(
+                                  color: AppColors.whiteColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              icon: Icon(Icons.check_circle_outline),
+                              iconAlignment: IconAlignment.end,
+                            ),
+                    );
+                  },
                 ),
                 Expanded(
                   child: ElevatedButton.icon(
@@ -96,7 +106,7 @@ class CancelBookingScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () => Navigator.pop(context),
                     label: Text(
                       'No',
                       style: TextStyle(

@@ -28,6 +28,8 @@ import 'package:quick_hitch/view_model/controller/auth/social_sign_in/apple_sign
 import 'package:quick_hitch/view_model/controller/auth/social_sign_in/facebook_sign_in.dart';
 import 'package:quick_hitch/view_model/controller/auth/social_sign_in/google_sign_in.dart';
 import 'package:quick_hitch/view_model/controller/bookings/booking_view_model.dart';
+import 'package:quick_hitch/view_model/controller/bookings/cancel_booking_view_model.dart';
+import 'package:quick_hitch/view_model/controller/bookings/get_booking_details_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/card_view_model/add_new_card_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/recent_search_view_model.dart';
@@ -108,8 +110,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => GetAllRidesViewModel()),
         ChangeNotifierProvider(create: (_) => SearchRideViewModel()),
         ChangeNotifierProvider(create: (_) => RecentSearchViewModel()),
-        ChangeNotifierProvider(create: (_) => BookingViewModel()),
         ChangeNotifierProvider(create: (_) => AddNewCardViewModel()),
+        ChangeNotifierProvider(create: (_) => BookingViewModel()),
+        ChangeNotifierProvider(create: (_) => GetBookingDetailsViewModel()),
+        ChangeNotifierProvider(create: (_) => CancelBookingViewModel()),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',
