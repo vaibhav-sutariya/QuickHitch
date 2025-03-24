@@ -33,7 +33,7 @@ class BookingData {
   int? distance;
   int? noOfSeats;
   int? originalAmount;
-  int? totalAmount;
+  double? totalAmount;
   String? status;
   String? paymentStatus;
   Null cardId;
@@ -41,7 +41,7 @@ class BookingData {
   Null refundId;
   int? refundAmount;
   int? cancellationFee;
-  int? platformFee;
+  double? platformFee;
   int? discount;
   int? amountPayableToDriver;
   String? createdAt;
