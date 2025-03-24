@@ -11,7 +11,7 @@ import 'package:quick_hitch/model/home/card_model.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
 import 'package:quick_hitch/view/home/find/booking_summary/widgets/book_ride_details_widget.dart';
 import 'package:quick_hitch/view/home/find/booking_summary/widgets/sel_card_widget.dart';
-import 'package:quick_hitch/view_model/controller/home/booking_view_model.dart';
+import 'package:quick_hitch/view_model/controller/bookings/booking_view_model.dart';
 
 class BookingSummaryScreen extends StatelessWidget {
   final Rides ride;

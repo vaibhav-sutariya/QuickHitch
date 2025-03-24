@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/model/home/search_ride_model.dart';
-import 'package:quick_hitch/view_model/controller/home/booking_view_model.dart';
+import 'package:quick_hitch/view_model/controller/bookings/booking_view_model.dart';
 
 class BillingWidget extends StatelessWidget {
   final Rides ride;
