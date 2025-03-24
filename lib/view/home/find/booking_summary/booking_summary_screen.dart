@@ -26,6 +26,7 @@ class BookingSummaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log('Booking Summary: ${ride.origin.toString()}');
+    log('Booking id: ${ride.id.toString()}');
     log('Booking Summary: ${card.id}');
 
     return Scaffold(

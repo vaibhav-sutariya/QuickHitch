@@ -48,7 +48,7 @@ class BookingRequestScreen extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(16),
                 child: CustomElevatedButton(
-                  text: 'Confirm Request to Book',
+                  text: 'Done',
                   press: () {},
                 ),
               ),
