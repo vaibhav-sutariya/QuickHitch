@@ -16,39 +16,45 @@ class PaymentPolicyScreen extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: constraints.maxWidth > 600 ? 32.0 : 16.0,
-                vertical: 16.0,
+          return Column(
+            children: [
+              CustomDivider(),
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth > 600 ? 32.0 : 16.0,
+                    vertical: 16.0,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16),
+                      _buildSectionTitle('Our payment policies'),
+                      _buildSectionText(
+                        'A Passenger can withdraw their Booking request before Driver approval without any charges.',
+                      ),
+                      _buildSectionText(
+                        'If the Booking request expires, the Passenger is not charged, and a full refund is issued.',
+                      ),
+                      SizedBox(height: 20),
+                      _buildSectionTitle('Refund'),
+                      _buildSectionSubTitle(
+                          'More than 24 hours before departure'),
+                      _buildSectionText(
+                        'Passenger receives a full refund of the Trip Contribution, but the Booking fee is retained by QuickHitch as a cancellation fee.',
+                      ),
+                      SizedBox(height: 8),
+                      _buildSectionSubTitle(
+                          'Less than 24 hours before departure'),
+                      _buildSectionText(
+                        'Driver receives 50% of the Contribution. Passengers are refunded the remaining 50% of the Contribution.',
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomDivider(),
-                  SizedBox(height: 16),
-                  _buildSectionTitle('Our payment policies'),
-                  _buildSectionText(
-                    'A Passenger can withdraw their Booking request before Driver approval without any charges.',
-                  ),
-                  _buildSectionText(
-                    'If the Booking request expires, the Passenger is not charged, and a full refund is issued.',
-                  ),
-                  SizedBox(height: 20),
-                  _buildSectionTitle('Refund'),
-                  _buildSectionSubTitle('More than 24 hours before departure'),
-                  _buildSectionText(
-                    'Passenger receives a full refund of the Trip Contribution, but the Booking fee is retained by QuickHitch as a cancellation fee.',
-                  ),
-                  SizedBox(height: 8),
-                  _buildSectionSubTitle('Less than 24 hours before departure'),
-                  _buildSectionText(
-                    'Driver receives 50% of the Contribution. Passengers are refunded the remaining 50% of the Contribution.',
-                  ),
-                  SizedBox(height: 20),
-                ],
-              ),
-            ),
+            ],
           );
         },
       ),

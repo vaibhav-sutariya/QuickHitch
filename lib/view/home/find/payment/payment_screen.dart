@@ -48,6 +48,8 @@ class PaymentScreen extends StatelessWidget {
                           child: Text('Select card for payment'),
                         ),
                         CardWidget(viewModel: viewModel),
+                        SizedBox(height: 10),
+
                         CustomDivider(),
                         Align(
                           alignment: Alignment.center,

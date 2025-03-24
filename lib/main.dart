@@ -9,6 +9,8 @@ import 'package:quick_hitch/configs/routes/routes.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/repository/auth_repository/auth_repository.dart';
 import 'package:quick_hitch/repository/auth_repository/forgot_password_repository.dart';
+import 'package:quick_hitch/repository/card_repository/add_card_repository.dart';
+import 'package:quick_hitch/repository/card_repository/get_card_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/change_password_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/get_user_profile_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/update_travel_preference_repository.dart';
@@ -72,6 +74,8 @@ void main() async {
       () => FindOneVehicleRepository());
   getIt.registerLazySingleton<GetAllRidesRepository>(
       () => GetAllRidesRepository());
+  getIt.registerLazySingleton<AddCardRepository>(() => AddCardRepository());
+  getIt.registerLazySingleton<GetCardRepository>(() => GetCardRepository());
   runApp(const MyApp());
 }
 
