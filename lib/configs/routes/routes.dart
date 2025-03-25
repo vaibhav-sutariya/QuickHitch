@@ -162,10 +162,16 @@ class Routes {
                   bookingId: settings.arguments as String,
                 ));
       case RoutesName.bookingDetailsScreen:
+        final args =
+            settings.arguments as Map<String, dynamic>; // Correct casting
         return MaterialPageRoute(
-            builder: (BuildContext context) => BookingDetailsScreen(
-                  bookingId: settings.arguments as String,
-                ));
+          builder: (BuildContext context) => BookingDetailsScreen(
+            bookingId: args['bookingId'] as String,
+            isCancelled:
+                args['isCancelled'] as bool? ?? false, // Handle null safety
+          ),
+        );
+
       case RoutesName.cancelBookingScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => CancelBookingScreen(

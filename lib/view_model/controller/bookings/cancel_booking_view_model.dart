@@ -26,7 +26,15 @@ class CancelBookingViewModel with ChangeNotifier {
           await CancelBookingRepository().cancelBooking(data, token);
       log('Confirm Booking Response: $response');
       await Future.delayed(Duration(seconds: 1));
-      Navigator.pushNamed(context, RoutesName.bookingDetailsScreen);
+      Navigator.pushNamed(
+        context,
+        RoutesName.bookingDetailsScreen,
+        arguments: {
+          'bookingId': bookingId,
+          'isCancelled':
+              true, // This must be inside a map, NOT a direct boolean
+        },
+      );
       setCancelBookingLoading(false);
     } catch (e) {
       setCancelBookingLoading(false);
