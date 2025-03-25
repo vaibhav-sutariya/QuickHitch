@@ -31,5 +31,5 @@ class AppUrl {
   static var setDefaultCardEndPoint = '$baseUrl/user/card/default';
   static var createBookingEndPoint = '$baseUrl/user/ride/booking';
   static var getBookingDetailsEndPoint = '$baseUrl/user/ride/bookings';
-  static var confirmBookingEndPoint = '$baseUrl/user/ride-booking-cancel';
+  static var cancelBookingEndPoint = '$baseUrl/user/ride-booking-cancel';
 }

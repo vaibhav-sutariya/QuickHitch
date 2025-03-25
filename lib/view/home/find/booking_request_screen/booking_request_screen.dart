@@ -57,10 +57,7 @@ class BookingRequestScreen extends StatelessWidget {
                   press: () => Navigator.pushNamed(
                     context,
                     RoutesName.bookingDetailsScreen,
-                    arguments: {
-                      'bookingId': bookingId,
-                      'isCancelled': false,
-                    },
+                    arguments: bookingId,
                   ),
                 ),
               ),

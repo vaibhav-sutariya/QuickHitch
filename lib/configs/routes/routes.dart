@@ -21,6 +21,7 @@ import 'package:quick_hitch/view/home/find/found_view/found_view_ride_screen.dar
 import 'package:quick_hitch/view/home/find/no_ride_found/no_ride_screen.dart';
 import 'package:quick_hitch/view/home/find/payment/add_new_card/add_new_card_screen.dart';
 import 'package:quick_hitch/view/home/find/payment/payment_screen.dart';
+import 'package:quick_hitch/view/home/find/refund_details/refund_details_screen.dart';
 import 'package:quick_hitch/view/home/find/ride_found/ride_found_screen.dart';
 import 'package:quick_hitch/view/home/find/seat_price/seat_price_scren.dart';
 import 'package:quick_hitch/view/home/home_screen.dart';
@@ -162,14 +163,11 @@ class Routes {
                   bookingId: settings.arguments as String,
                 ));
       case RoutesName.bookingDetailsScreen:
-        final args =
-            settings.arguments as Map<String, dynamic>; // Correct casting
+        // Correct casting
         return MaterialPageRoute(
           builder: (BuildContext context) => BookingDetailsScreen(
-            bookingId: args['bookingId'] as String,
-            isCancelled:
-                args['isCancelled'] as bool? ?? false, // Handle null safety
-          ),
+              bookingId: settings.arguments as String // Handle null safety
+              ),
         );
 
       case RoutesName.cancelBookingScreen:
@@ -177,6 +175,10 @@ class Routes {
             builder: (BuildContext context) => CancelBookingScreen(
                   booking: settings.arguments as dynamic,
                 ));
+      case RoutesName.refundDetailsScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) =>
+                RefundDetailsScreen(bookingId: settings.arguments as String));
       // case RoutesName.login:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const LoginView());

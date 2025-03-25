@@ -2,10 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
+import 'package:quick_hitch/model/bookings/refund_model.dart';
 import 'package:quick_hitch/repository/booking_repository/cancel_booking_repository.dart';
 import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class CancelBookingViewModel with ChangeNotifier {
+  RefundModel? _refundDetailsModel;
+  RefundModel? get refundDetailsModel => _refundDetailsModel;
+
   bool _updateCancelBookingLoading = false;
   bool get updateCancelBookingLoading => _updateCancelBookingLoading;
 
@@ -25,15 +29,12 @@ class CancelBookingViewModel with ChangeNotifier {
       final response =
           await CancelBookingRepository().cancelBooking(data, token);
       log('Confirm Booking Response: $response');
+      _refundDetailsModel = response;
       await Future.delayed(Duration(seconds: 1));
       Navigator.pushNamed(
         context,
-        RoutesName.bookingDetailsScreen,
-        arguments: {
-          'bookingId': bookingId,
-          'isCancelled':
-              true, // This must be inside a map, NOT a direct boolean
-        },
+        RoutesName.refundDetailsScreen,
+        arguments: bookingId,
       );
       setCancelBookingLoading(false);
     } catch (e) {

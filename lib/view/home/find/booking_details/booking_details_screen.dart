@@ -13,10 +13,11 @@ import 'package:quick_hitch/view_model/controller/bookings/get_booking_details_v
 
 class BookingDetailsScreen extends StatelessWidget {
   final String bookingId;
-  final bool isCancelled;
 
-  const BookingDetailsScreen(
-      {super.key, required this.bookingId, this.isCancelled = false});
+  const BookingDetailsScreen({
+    super.key,
+    required this.bookingId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,7 @@ class BookingDetailsScreen extends StatelessWidget {
           if (viewModel.getBookingDetailsModelLoadingLoading) {
             return Scaffold(
               appBar: CustomAppBar(
-                  title: isCancelled ? 'Refund' : 'Booking',
-                  isLeading: true,
-                  isAction: false),
+                  title: 'Booking', isLeading: true, isAction: false),
               body: Center(
                 child: CircularProgressIndicator(),
               ),

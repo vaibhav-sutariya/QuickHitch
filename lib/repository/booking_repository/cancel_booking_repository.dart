@@ -4,9 +4,10 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:quick_hitch/configs/app_url.dart';
+import 'package:quick_hitch/model/bookings/refund_model.dart';
 
 class CancelBookingRepository with ChangeNotifier {
-  Future<Map<String, dynamic>> cancelBooking(
+  Future<RefundModel> cancelBooking(
     dynamic data,
     String token,
   ) async {
@@ -15,7 +16,7 @@ class CancelBookingRepository with ChangeNotifier {
         throw Exception("Token is empty or null");
       }
 
-      final url = Uri.parse(AppUrl.confirmBookingEndPoint);
+      final url = Uri.parse(AppUrl.cancelBookingEndPoint);
 
       final response = await http.patch(
         url,
@@ -28,15 +29,14 @@ class CancelBookingRepository with ChangeNotifier {
 
       log("Response Status Code: '${response.statusCode}'");
       log("Response Body: '${response.body}'");
-
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        log("Confirm Booking Success Response: $responseData");
-        return responseData;
+        log("Cancel booking Response: $responseData");
+        return RefundModel.fromJson(responseData);
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
-            "Confirm Booking failed: ${errorData['message'] ?? 'Unknown error'}");
+            "cancel booking failed: ${errorData['message'] ?? 'Unknown error'}");
       }
     } catch (e) {
       log("Confirm Booking Error: $e");
