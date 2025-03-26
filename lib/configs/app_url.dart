@@ -23,6 +23,7 @@ class AppUrl {
   static var findOneVehicleEndPoint = '$baseUrl/vehicles/';
   static var makeEndPoint = '$baseUrl/vehicles/make';
   static var createRideEndPoint = '$baseUrl/user/rides';
+  static var cancelRideEndPoint = '$baseUrl/user/rides/';
   static var getRidesEndPoint = '$baseUrl/user/rides?status=';
   static var searchAndFileterEndPoint = '$baseUrl/rides/search?';
   static var recentSearchEndPoint = '$baseUrl/rides/search-history';
@@ -33,4 +34,5 @@ class AppUrl {
   static var getBookingDetailsEndPoint = '$baseUrl/user/ride/bookings';
   static var cancelBookingEndPoint = '$baseUrl/user/ride-booking-cancel';
   static var listRideBookingRequestEndPoint = '$baseUrl/user/ride/';
+  static var rideBookingConfirmEndPoint = '$baseUrl/user/ride/booking/confirm';
 }

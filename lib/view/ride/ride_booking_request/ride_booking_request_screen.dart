@@ -45,8 +45,20 @@ class RideBookingRequestScreen extends StatelessWidget {
           final data = viewModel.bookingRequestModel;
           if (data == null || data.data == null || data.data!.isEmpty) {
             return const Scaffold(
-              body: Center(child: Text("No booking requests found")),
-            );
+                appBar: CustomAppBar(
+                  title: 'Booking Request',
+                  isLeading: true,
+                  isAction: false,
+                ),
+                body: Column(
+                  children: [
+                    CustomDivider(),
+                    BookingReqToggleWidget(
+                      bookingRequestData: '0',
+                    ),
+                    Center(child: Text("No requests found")),
+                  ],
+                ));
           }
 
           final selectedStatus = toggleProvider.selectedStatus;
@@ -78,6 +90,7 @@ class RideBookingRequestScreen extends StatelessWidget {
                           separatorBuilder: (context, index) => CustomDivider(),
                           itemBuilder: (context, index) {
                             final request = filteredRequests[index];
+                            log('Request: ${request.id}');
                             return Column(
                               children: [
                                 RiderDetailsWidget(request: request),

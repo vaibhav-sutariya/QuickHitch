@@ -481,7 +481,7 @@ class PostRideViewModel with ChangeNotifier {
           response['message'] == "Ride created successfully") {
         log("Ride Created Successfully: $response");
         Utils.flushBarSuccessMessage('Ride Created SuccessFully', context);
-        await Future.delayed(Duration(seconds: 1));
+        // await Future.delayed(Duration(seconds: 1));
         Navigator.pushNamedAndRemoveUntil(
             context, RoutesName.bottomNavBar, (route) => false);
         clearData();

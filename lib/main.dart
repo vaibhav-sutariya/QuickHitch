@@ -21,6 +21,7 @@ import 'package:quick_hitch/repository/profile_repository/vehicle/get_all_vehicl
 import 'package:quick_hitch/repository/profile_repository/vehicle/make_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/vehicle/update_vehicle_repository.dart';
 import 'package:quick_hitch/repository/ride_repository/bookings/get_booking_request_repository.dart';
+import 'package:quick_hitch/repository/ride_repository/cancel_ride_repository.dart';
 import 'package:quick_hitch/repository/ride_repository/get_all_rides_repository.dart';
 import 'package:quick_hitch/view_model/controller/auth/forgot_password/forgot_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/auth/login/login_view_model.dart';
@@ -44,6 +45,7 @@ import 'package:quick_hitch/view_model/controller/profile/vehicle/find_one_vehic
 import 'package:quick_hitch/view_model/controller/profile/vehicle/get_all_vehicle_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/vehicle/vehicle_mgmn_view_model.dart';
 import 'package:quick_hitch/view_model/controller/rides/booking_request/get_ride_booking_request_view_model.dart';
+import 'package:quick_hitch/view_model/controller/rides/cancel_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/rides/get_all_rides_view_model.dart';
 import 'package:quick_hitch/view_model/services/bottom_nav_bar/bottom_navbar_provider.dart';
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
@@ -82,6 +84,8 @@ void main() async {
   getIt.registerLazySingleton<GetCardRepository>(() => GetCardRepository());
   getIt.registerLazySingleton<GetBookingRequestRepository>(
       () => GetBookingRequestRepository());
+  getIt.registerLazySingleton<CancelRideRepository>(
+      () => CancelRideRepository());
   runApp(const MyApp());
 }
 
@@ -120,6 +124,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
         ChangeNotifierProvider(create: (_) => GetBookingDetailsViewModel()),
         ChangeNotifierProvider(create: (_) => CancelBookingViewModel()),
+        ChangeNotifierProvider(create: (_) => CancelRideViewModel()),
         ChangeNotifierProvider(
             create: (_) => GetRideBookingRequestViewModel(
                 Provider.of<ThreeRideBookingReqToggleProvider>(context,

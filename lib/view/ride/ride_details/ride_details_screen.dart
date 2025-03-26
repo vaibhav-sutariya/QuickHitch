@@ -12,6 +12,7 @@ import 'package:quick_hitch/view/ride/ride_details/widgets/location_details_widg
 import 'package:quick_hitch/view/ride/ride_details/widgets/stops/stops_widget.dart';
 import 'package:quick_hitch/view/ride/ride_details/widgets/vehicle_widget.dart';
 import 'package:quick_hitch/view_model/controller/profile/get_profile/get_user_profile_view_model.dart';
+import 'package:quick_hitch/view_model/controller/rides/cancel_ride_view_model.dart';
 
 class RideDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> arguments;
@@ -91,10 +92,18 @@ class RideDetailsScreen extends StatelessWidget {
                   text: 'Edit trip details',
                   onPressed: () {},
                 ),
-                CustomBtn(
-                  color: AppColors.redColor,
-                  text: 'Cancel trip',
-                  onPressed: () {},
+                Consumer<CancelRideViewModel>(
+                  builder: (context, provider, child) {
+                    return provider.updateCancelrideLoading
+                        ? CircularProgressIndicator()
+                        : CustomBtn(
+                            color: AppColors.redColor,
+                            text: 'Cancel trip',
+                            onPressed: () {
+                              provider.cancelRide(context, ride.id!);
+                            },
+                          );
+                  },
                 ),
                 SizedBox(height: 50),
               ],
