@@ -15,9 +15,16 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
 
   String? _currentRideId;
 
+  // Injecting dependency for toggle provider to maintain a single instance
+  final ThreeRideBookingReqToggleProvider _toggleProvider;
+
+  GetRideBookingRequestViewModel(this._toggleProvider);
+
   void setBookingRequestLoading(bool value) {
-    _getBookingRequestLoading = value;
-    notifyListeners();
+    if (_getBookingRequestLoading != value) {
+      _getBookingRequestLoading = value;
+      notifyListeners();
+    }
   }
 
   Future<void> getRidesBookingReq(String id, {String? status}) async {
@@ -28,8 +35,8 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
 
       String token = await getToken();
 
-      final rideStatus = status ??
-          ThreeRideBookingReqToggleProvider().selectedStatus.name.toUpperCase();
+      final rideStatus =
+          status ?? _toggleProvider.selectedStatus.name.toUpperCase();
 
       log("Fetching booking requests with Status: $rideStatus");
 
@@ -37,12 +44,11 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
           .getBookingRequests(id, token, rideStatus);
 
       _bookingRequestModel = rides;
-    } catch (e) {
+    } catch (e, stacktrace) {
       log("Error fetching booking requests: $e");
-      _bookingRequestModel = null;
+      log("Stacktrace: $stacktrace");
     } finally {
       setBookingRequestLoading(false);
-      notifyListeners();
     }
   }
 

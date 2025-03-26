@@ -19,34 +19,38 @@ class RideBookingRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('rideId: $rideId');
+    log('Ride ID: $rideId');
 
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (_) =>
-                GetRideBookingRequestViewModel()..getRidesBookingReq(rideId)),
+          create: (_) => GetRideBookingRequestViewModel(
+            Provider.of<ThreeRideBookingReqToggleProvider>(context,
+                listen: false),
+          )..getRidesBookingReq(rideId),
+        ),
         ChangeNotifierProvider(
-            create: (_) => ThreeRideBookingReqToggleProvider()),
+          create: (_) => ThreeRideBookingReqToggleProvider(),
+        ),
       ],
       child: Consumer2<GetRideBookingRequestViewModel,
           ThreeRideBookingReqToggleProvider>(
         builder: (context, viewModel, toggleProvider, child) {
-          final data = viewModel.bookingRequestModel;
-          final selectedStatus = toggleProvider.selectedStatus;
-          log('selectedStatus: $selectedStatus');
-
           if (viewModel.getBookingRequestLoading) {
             return const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             );
           }
 
-          if (data == null || data.data == null) {
+          final data = viewModel.bookingRequestModel;
+          if (data == null || data.data == null || data.data!.isEmpty) {
             return const Scaffold(
               body: Center(child: Text("No booking requests found")),
             );
           }
+
+          final selectedStatus = toggleProvider.selectedStatus;
+          log('Selected Status: $selectedStatus');
 
           final filteredRequests = data.data!
               .where((request) =>
@@ -56,7 +60,10 @@ class RideBookingRequestScreen extends StatelessWidget {
 
           return Scaffold(
             appBar: CustomAppBar(
-                title: 'Booking Request', isLeading: true, isAction: false),
+              title: 'Booking Request',
+              isLeading: true,
+              isAction: false,
+            ),
             body: Column(
               children: [
                 CustomDivider(),
@@ -66,35 +73,39 @@ class RideBookingRequestScreen extends StatelessWidget {
                 Expanded(
                   child: filteredRequests.isEmpty
                       ? const Center(child: Text("No requests found"))
-                      : ListView.builder(
+                      : ListView.separated(
                           itemCount: filteredRequests.length,
+                          separatorBuilder: (context, index) => CustomDivider(),
                           itemBuilder: (context, index) {
                             final request = filteredRequests[index];
                             return Column(
                               children: [
                                 RiderDetailsWidget(request: request),
-                                SizedBox(height: 5.0),
+                                const SizedBox(height: 5.0),
                                 ReqRideWidget(ride: request),
                                 Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 10),
                                   child: Row(
-                                    spacing: 32,
                                     children: [
                                       Expanded(
                                         child: SmallButtonWidget(
                                           color: AppColors.greenColor2,
                                           text: 'Accept',
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              log('Accepted: ${request.id}'),
                                           isLoading: viewModel
                                               .getBookingRequestLoading,
                                           icon: Icons.check_circle_outlined,
                                         ),
                                       ),
+                                      const SizedBox(width: 16),
                                       Expanded(
                                         child: SmallButtonWidget(
                                           color: AppColors.redColor,
                                           text: 'Decline',
-                                          onPressed: () {},
+                                          onPressed: () =>
+                                              log('Declined: ${request.id}'),
                                           isLoading: viewModel
                                               .getBookingRequestLoading,
                                           icon: Icons.cancel_outlined,
@@ -103,7 +114,6 @@ class RideBookingRequestScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                CustomDivider(),
                               ],
                             );
                           },

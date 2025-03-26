@@ -120,7 +120,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
         ChangeNotifierProvider(create: (_) => GetBookingDetailsViewModel()),
         ChangeNotifierProvider(create: (_) => CancelBookingViewModel()),
-        ChangeNotifierProvider(create: (_) => GetRideBookingRequestViewModel()),
+        ChangeNotifierProvider(
+            create: (_) => GetRideBookingRequestViewModel(
+                Provider.of<ThreeRideBookingReqToggleProvider>(context,
+                    listen: false))),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',
