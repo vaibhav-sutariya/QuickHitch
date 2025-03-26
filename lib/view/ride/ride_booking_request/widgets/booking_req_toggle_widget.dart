@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
 
 class BookingReqToggleWidget extends StatelessWidget {
-  const BookingReqToggleWidget({super.key});
+  final String bookingRequestData;
+  const BookingReqToggleWidget({super.key, required this.bookingRequestData});
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +62,35 @@ class BookingReqToggleWidget extends StatelessWidget {
                         : Colors.transparent,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
-                  child: const Text(
-                    'Pending',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pending',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(width: 8.0),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 2.0),
+                        decoration: BoxDecoration(
+                          color: AppColors.bgColor,
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        child: Text(
+                          bookingRequestData,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: AppColors.darkColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),

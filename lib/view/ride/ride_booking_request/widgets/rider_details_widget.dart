@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/model/rides/booking_request/get_booking_request_model.dart';
 
 class RiderDetailsWidget extends StatelessWidget {
@@ -23,9 +24,23 @@ class RiderDetailsWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(request.rider!.firstName!),
-                  Text(DateFormat('dd/MM/yyyy | hh:mm a')
-                      .format(DateTime.parse(request.ride!.departureDate!))),
+                  Text(
+                    request.rider!.firstName!,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.darkColor,
+                    ),
+                  ),
+                  Text(
+                    DateFormat('dd/MM/yyyy | hh:mm a')
+                        .format(DateTime.parse(request.ride!.departureDate!)),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -35,11 +50,18 @@ class RiderDetailsWidget extends StatelessWidget {
             children: [
               Text(
                 '\$${request.totalAmount}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.darkColor,
+                    fontSize: 16),
               ),
               Text(
                 'Seats: ${request.noOfSeats}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.lightColor,
+                ),
               ),
             ],
           )

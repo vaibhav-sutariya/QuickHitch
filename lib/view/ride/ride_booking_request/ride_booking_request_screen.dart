@@ -60,7 +60,9 @@ class RideBookingRequestScreen extends StatelessWidget {
             body: Column(
               children: [
                 CustomDivider(),
-                BookingReqToggleWidget(),
+                BookingReqToggleWidget(
+                  bookingRequestData: filteredRequests.length.toString(),
+                ),
                 Expanded(
                   child: filteredRequests.isEmpty
                       ? const Center(child: Text("No requests found"))

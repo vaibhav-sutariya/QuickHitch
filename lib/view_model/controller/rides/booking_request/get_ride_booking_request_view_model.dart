@@ -46,6 +46,7 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
     }
   }
 
+  // Method to refresh with the current ride ID and selected status
   void refreshBookingRequests(RidebookingStatus status) {
     if (_currentRideId != null) {
       getRidesBookingReq(_currentRideId!, status: status.name.toUpperCase());
