@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 enum RideStatus { active, completed, cancelled }
@@ -24,7 +22,6 @@ class ThreeRideBookingReqToggleProvider with ChangeNotifier {
 
   void toggleRide(RidebookingStatus status) {
     _selectedStatus = status;
-    log('Selected status: $_selectedStatus');
     notifyListeners();
   }
 }
