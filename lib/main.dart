@@ -20,6 +20,7 @@ import 'package:quick_hitch/repository/profile_repository/vehicle/find_one_vehic
 import 'package:quick_hitch/repository/profile_repository/vehicle/get_all_vehicle_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/vehicle/make_repository.dart';
 import 'package:quick_hitch/repository/profile_repository/vehicle/update_vehicle_repository.dart';
+import 'package:quick_hitch/repository/ride_repository/bookings/get_booking_request_repository.dart';
 import 'package:quick_hitch/repository/ride_repository/get_all_rides_repository.dart';
 import 'package:quick_hitch/view_model/controller/auth/forgot_password/forgot_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/auth/login/login_view_model.dart';
@@ -42,6 +43,7 @@ import 'package:quick_hitch/view_model/controller/profile/vehicle/delete_vehicle
 import 'package:quick_hitch/view_model/controller/profile/vehicle/find_one_vehicle_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/vehicle/get_all_vehicle_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/vehicle/vehicle_mgmn_view_model.dart';
+import 'package:quick_hitch/view_model/controller/rides/booking_request/get_ride_booking_request_view_model.dart';
 import 'package:quick_hitch/view_model/controller/rides/get_all_rides_view_model.dart';
 import 'package:quick_hitch/view_model/services/bottom_nav_bar/bottom_navbar_provider.dart';
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
@@ -78,6 +80,8 @@ void main() async {
       () => GetAllRidesRepository());
   getIt.registerLazySingleton<AddCardRepository>(() => AddCardRepository());
   getIt.registerLazySingleton<GetCardRepository>(() => GetCardRepository());
+  getIt.registerLazySingleton<GetBookingRequestRepository>(
+      () => GetBookingRequestRepository());
   runApp(const MyApp());
 }
 
@@ -102,6 +106,8 @@ class MyApp extends StatelessWidget {
             create: (_) => UpdateTravelPreferencesViewModel()),
         ChangeNotifierProvider(create: (_) => TwoRideToggleProvider()),
         ChangeNotifierProvider(create: (_) => ThreeRideToggleProvider()),
+        ChangeNotifierProvider(
+            create: (_) => ThreeRideBookingReqToggleProvider()),
         ChangeNotifierProvider(create: (_) => VehicleMgmtViewModel()),
         ChangeNotifierProvider(create: (_) => GetAllVehicleViewModel()),
         ChangeNotifierProvider(create: (_) => DeleteVehicleViewModel()),
@@ -114,6 +120,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BookingViewModel()),
         ChangeNotifierProvider(create: (_) => GetBookingDetailsViewModel()),
         ChangeNotifierProvider(create: (_) => CancelBookingViewModel()),
+        ChangeNotifierProvider(create: (_) => GetRideBookingRequestViewModel()),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',

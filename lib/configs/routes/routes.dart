@@ -34,6 +34,7 @@ import 'package:quick_hitch/view/profile/update_travel_preferences/update_travel
 import 'package:quick_hitch/view/profile/user_profile/user_profile_screen.dart';
 import 'package:quick_hitch/view/profile/vehicles/add_new_vehicle/add_new_vehicle_screen.dart';
 import 'package:quick_hitch/view/profile/vehicles/vehicle_details/vehicles_details_screen.dart';
+import 'package:quick_hitch/view/ride/ride_booking_request/ride_booking_request_screen.dart';
 import 'package:quick_hitch/view/ride/ride_details/ride_details_screen.dart';
 import 'package:quick_hitch/view/splash/splash_view.dart';
 
@@ -179,6 +180,11 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) =>
                 RefundDetailsScreen(bookingId: settings.arguments as String));
+      case RoutesName.rideBookingRequestScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => RideBookingRequestScreen(
+                  rideId: settings.arguments as String,
+                ));
       // case RoutesName.login:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const LoginView());

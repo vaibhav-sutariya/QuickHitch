@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/rides/ride_model.dart';
 import 'package:quick_hitch/view/profile/user_profile/widgets/travel_preference_widget.dart';
 import 'package:quick_hitch/view/ride/ride_details/widgets/custom_btn.dart';
@@ -78,7 +79,13 @@ class RideDetailsScreen extends StatelessWidget {
                 ),
                 CustomBtn(
                   text: 'View Bookings',
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RoutesName.rideBookingRequestScreen,
+                      arguments: ride.id,
+                    );
+                  },
                 ),
                 CustomBtn(
                   text: 'Edit trip details',
