@@ -13,7 +13,7 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
   bool _getBookingRequestLoading = false;
   bool get getBookingRequestLoading => _getBookingRequestLoading;
 
-  String? _currentRideId;
+  String? currentRideId;
 
   // Injecting dependency for toggle provider to maintain a single instance
   final ThreeRideBookingReqToggleProvider _toggleProvider;
@@ -31,7 +31,7 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
     try {
       setBookingRequestLoading(true);
 
-      _currentRideId = id;
+      currentRideId = id;
 
       String token = await getToken();
 
@@ -54,8 +54,8 @@ class GetRideBookingRequestViewModel with ChangeNotifier {
 
   // Method to refresh with the current ride ID and selected status
   void refreshBookingRequests(RidebookingStatus status) {
-    if (_currentRideId != null) {
-      getRidesBookingReq(_currentRideId!, status: status.name.toUpperCase());
+    if (currentRideId != null) {
+      getRidesBookingReq(currentRideId!, status: status.name.toUpperCase());
     }
   }
 }

@@ -34,104 +34,116 @@ class RideBookingRequestScreen extends StatelessWidget {
           create: (_) => ThreeRideBookingReqToggleProvider(),
         ),
       ],
-      child: Consumer2<GetRideBookingRequestViewModel,
-          ThreeRideBookingReqToggleProvider>(
-        builder: (context, viewModel, toggleProvider, child) {
-          if (viewModel.getBookingRequestLoading) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
+      child: Scaffold(
+        appBar: const CustomAppBar(
+          title: 'Booking Request',
+          isLeading: true,
+          isAction: false,
+        ),
+        body: Column(
+          children: [
+            const CustomDivider(),
 
-          final data = viewModel.bookingRequestModel;
-          if (data == null || data.data == null || data.data!.isEmpty) {
-            return const Scaffold(
-              body: Center(child: Text("No booking requests found")),
-            );
-          }
-
-          final selectedStatus = toggleProvider.selectedStatus;
-          log('Selected Status: $selectedStatus');
-
-          final filteredRequests = data.data!
-              .where((request) =>
-                  request.status.toString().toUpperCase() ==
-                  selectedStatus.name.toUpperCase())
-              .toList();
-
-          return Scaffold(
-            appBar: CustomAppBar(
-              title: 'Booking Request',
-              isLeading: true,
-              isAction: false,
+            Consumer<ThreeRideBookingReqToggleProvider>(
+              builder: (context, toggleProvider, child) {
+                return BookingReqToggleWidget(
+                  bookingRequestData: '0',
+                );
+              },
             ),
-            body: Column(
-              children: [
-                CustomDivider(),
-                BookingReqToggleWidget(
-                  bookingRequestData: filteredRequests.length.toString(),
-                ),
-                Expanded(
-                  child: filteredRequests.isEmpty
-                      ? const Center(child: Text("No requests found"))
-                      : ListView.separated(
-                          itemCount: filteredRequests.length,
-                          separatorBuilder: (context, index) => CustomDivider(),
-                          itemBuilder: (context, index) {
-                            final request = filteredRequests[index];
-                            return Column(
-                              children: [
-                                RiderDetailsWidget(request: request),
-                                const SizedBox(height: 5.0),
-                                ReqRideWidget(ride: request),
-                                if (request.status == 'PENDING')
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0, vertical: 10),
-                                    child: Row(
-                                      children: [
-                                        Consumer<ConfirmBookingViewModel>(
-                                          builder: (context, value, child) {
-                                            return Expanded(
-                                              child: SmallButtonWidget(
-                                                color: AppColors.greenColor2,
-                                                text: 'Accept',
-                                                onPressed: () {
-                                                  value.confirmBooking(
-                                                      request.id!);
-                                                },
-                                                isLoading: value
-                                                    .getConfrimBookingLoading,
-                                                icon:
-                                                    Icons.check_circle_outlined,
+
+            /// Only this part should refresh
+            Expanded(
+              child: Consumer2<GetRideBookingRequestViewModel,
+                  ThreeRideBookingReqToggleProvider>(
+                builder: (context, viewModel, toggleProvider, child) {
+                  if (viewModel.getBookingRequestLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final data = viewModel.bookingRequestModel;
+                  if (data == null || data.data == null || data.data!.isEmpty) {
+                    return const Center(
+                        child: Text("No booking requests found"));
+                  }
+
+                  final selectedStatus = toggleProvider.selectedStatus;
+                  log('Selected Status: $selectedStatus');
+
+                  final filteredRequests = data.data!
+                      .where((request) =>
+                          request.status.toString().toUpperCase() ==
+                          selectedStatus.name.toUpperCase())
+                      .toList();
+
+                  return RefreshIndicator(
+                    onRefresh: () async {
+                      viewModel.refreshBookingRequests(selectedStatus);
+                    },
+                    child: filteredRequests.isEmpty
+                        ? const Center(child: Text("No requests found"))
+                        : ListView.separated(
+                            itemCount: filteredRequests.length,
+                            separatorBuilder: (context, index) =>
+                                const CustomDivider(),
+                            itemBuilder: (context, index) {
+                              final request = filteredRequests[index];
+                              return Column(
+                                children: [
+                                  RiderDetailsWidget(request: request),
+                                  const SizedBox(height: 5.0),
+                                  ReqRideWidget(ride: request),
+                                  if (request.status == 'PENDING')
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0, vertical: 10),
+                                      child: Consumer<ConfirmBookingViewModel>(
+                                        builder: (context, value, child) {
+                                          return Row(
+                                            children: [
+                                              Expanded(
+                                                child: SmallButtonWidget(
+                                                  color: AppColors.greenColor2,
+                                                  text: 'Accept',
+                                                  onPressed: () {
+                                                    value.confirmBooking(
+                                                        request.id!);
+                                                  },
+                                                  isLoading: value
+                                                      .getConfrimBookingLoading,
+                                                  icon: Icons
+                                                      .check_circle_outlined,
+                                                ),
                                               ),
-                                            );
-                                          },
-                                        ),
-                                        const SizedBox(width: 16),
-                                        Expanded(
-                                          child: SmallButtonWidget(
-                                            color: AppColors.redColor,
-                                            text: 'Decline',
-                                            onPressed: () =>
-                                                log('Declined: ${request.id}'),
-                                            isLoading: viewModel
-                                                .getBookingRequestLoading,
-                                            icon: Icons.cancel_outlined,
-                                          ),
-                                        ),
-                                      ],
+                                              const SizedBox(width: 16),
+                                              Expanded(
+                                                child: SmallButtonWidget(
+                                                  color: AppColors.redColor,
+                                                  text: 'Decline',
+                                                  onPressed: () {
+                                                    value.rejectBooking(
+                                                        request.id!);
+                                                  },
+                                                  isLoading: value
+                                                      .getRejectBookingLoading,
+                                                  icon: Icons.cancel_outlined,
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  ),
-                              ],
-                            );
-                          },
-                        ),
-                ),
-              ],
+                                ],
+                              );
+                            },
+                          ),
+                  );
+                },
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

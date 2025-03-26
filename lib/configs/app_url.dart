@@ -35,4 +35,5 @@ class AppUrl {
   static var cancelBookingEndPoint = '$baseUrl/user/ride-booking-cancel';
   static var listRideBookingRequestEndPoint = '$baseUrl/user/ride/';
   static var rideBookingConfirmEndPoint = '$baseUrl/user/ride/booking/confirm';
+  static var rideBookingRejectEndPoint = '$baseUrl/user/ride/booking/reject';
 }

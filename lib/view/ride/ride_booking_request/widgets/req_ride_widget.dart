@@ -83,7 +83,10 @@ class ReqRideWidget extends StatelessWidget {
                     )),
               ],
             ),
-          SizedBox(height: 30),
+          SizedBox(
+              height: ride.status == 'ACCEPTED' || ride.status == 'REJECTED'
+                  ? 30.0
+                  : 0.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

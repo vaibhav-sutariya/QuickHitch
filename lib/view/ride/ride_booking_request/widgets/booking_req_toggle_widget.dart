@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
+import 'package:quick_hitch/view_model/controller/rides/booking_request/get_ride_booking_request_view_model.dart';
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
 
 class BookingReqToggleWidget extends StatelessWidget {
@@ -11,6 +12,7 @@ class BookingReqToggleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final rideToggleProvider =
         Provider.of<ThreeRideBookingReqToggleProvider>(context);
+    final viewModel = Provider.of<GetRideBookingRequestViewModel>(context);
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -26,8 +28,11 @@ class BookingReqToggleWidget extends StatelessWidget {
           children: [
             Expanded(
               child: GestureDetector(
-                onTap: () =>
-                    rideToggleProvider.toggleRide(RidebookingStatus.accepted),
+                onTap: () {
+                  rideToggleProvider.toggleRide(RidebookingStatus.accepted);
+                  viewModel.getRidesBookingReq(viewModel.currentRideId!,
+                      status: RidebookingStatus.accepted.name.toUpperCase());
+                },
                 child: Container(
                   height: 36.0,
                   alignment: Alignment.center,
@@ -50,8 +55,11 @@ class BookingReqToggleWidget extends StatelessWidget {
             ),
             Expanded(
               child: GestureDetector(
-                onTap: () =>
-                    rideToggleProvider.toggleRide(RidebookingStatus.pending),
+                onTap: () {
+                  rideToggleProvider.toggleRide(RidebookingStatus.pending);
+                  viewModel.getRidesBookingReq(viewModel.currentRideId!,
+                      status: RidebookingStatus.pending.name.toUpperCase());
+                },
                 child: Container(
                   height: 36.0,
                   alignment: Alignment.center,
@@ -82,7 +90,7 @@ class BookingReqToggleWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Text(
-                          bookingRequestData,
+                          bookingRequestData.toString(),
                           style: TextStyle(
                             fontSize: 12,
                             color: AppColors.darkColor,
@@ -97,8 +105,11 @@ class BookingReqToggleWidget extends StatelessWidget {
             ),
             Expanded(
               child: GestureDetector(
-                onTap: () =>
-                    rideToggleProvider.toggleRide(RidebookingStatus.rejected),
+                onTap: () {
+                  rideToggleProvider.toggleRide(RidebookingStatus.rejected);
+                  viewModel.getRidesBookingReq(viewModel.currentRideId!,
+                      status: RidebookingStatus.rejected.name.toUpperCase());
+                },
                 child: Container(
                   height: 36.0,
                   alignment: Alignment.center,

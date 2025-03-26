@@ -34,28 +34,42 @@ class RiderDetailsWidget extends StatelessWidget {
                           color: AppColors.darkColor,
                         ),
                       ),
-                      if (request.status == 'ACCEPTED' ||
-                          request.status == 'REJECTED')
+                      if (request.status == 'ACCEPTED')
                         Text(
                           '  •  ',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
-                            color: request.status == 'ACCEPTED'
-                                ? AppColors.greenColor
-                                : AppColors.redColor,
+                            color: AppColors.greenColor,
                           ),
                         ),
-                      Text(
-                        request.status == 'ACCEPTED' ? 'Booked' : 'Rejected',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: request.status == 'ACCEPTED'
-                              ? AppColors.greenColor
-                              : AppColors.redColor,
+                      if (request.status == 'ACCEPTED')
+                        Text(
+                          'Booked',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.greenColor,
+                          ),
                         ),
-                      ),
+                      if (request.status == 'REJECTED')
+                        Text(
+                          '  •  ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.redColor,
+                          ),
+                        ),
+                      if (request.status == 'REJECTED')
+                        Text(
+                          'Rejected',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.redColor,
+                          ),
+                        ),
                     ],
                   ),
                   if (request.status == 'PENDING')
@@ -103,7 +117,7 @@ class RiderDetailsWidget extends StatelessWidget {
                       fontSize: 16),
                 ),
                 Text(
-                  'Seats: ${request.noOfSeats}',
+                  '${request.noOfSeats} Seats',
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
