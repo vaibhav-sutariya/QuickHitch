@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/model/rides/booking_request/get_booking_request_model.dart';
 
@@ -13,6 +14,76 @@ class ReqRideWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          if (ride.status == 'ACCEPTED' || ride.status == 'REJECTED')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                    DateFormat('dd/MM/yyyy | hh:mm a')
+                        .format(DateTime.parse(ride.ride!.departureDate!)),
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.darkColor,
+                    )),
+                Text('\$${ride.ride!.pricePerSeat.toString()}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.darkColor,
+                    )),
+              ],
+            ),
+          if (ride.status == 'ACCEPTED' || ride.status == 'REJECTED')
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.radio_button_checked,
+                          size: 18.0,
+                          color: AppColors.mediumColor,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            '${ride.origin} dsbfis iubisd fisbdf',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.mediumColor,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '(Original)',
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.mediumColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(width: 50),
+                Text('${ride.ride!.emptySeats.toString()} Seats',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.mediumColor,
+                    )),
+              ],
+            ),
+          SizedBox(height: 30),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

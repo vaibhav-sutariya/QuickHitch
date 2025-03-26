@@ -17,7 +17,7 @@ class ConfirmBookingViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> recentSearches(String bookingId) async {
+  Future<void> confirmBooking(String bookingId) async {
     try {
       setConfrimBookingLoading(true);
       String token = await getToken();

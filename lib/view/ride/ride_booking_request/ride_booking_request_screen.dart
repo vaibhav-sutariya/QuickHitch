@@ -9,6 +9,7 @@ import 'package:quick_hitch/configs/components/small_button_widget.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/booking_req_toggle_widget.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/req_ride_widget.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/rider_details_widget.dart';
+import 'package:quick_hitch/view_model/controller/rides/booking_request/confirm_booking_view_model.dart';
 import 'package:quick_hitch/view_model/controller/rides/booking_request/get_ride_booking_request_view_model.dart';
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
 
@@ -45,20 +46,8 @@ class RideBookingRequestScreen extends StatelessWidget {
           final data = viewModel.bookingRequestModel;
           if (data == null || data.data == null || data.data!.isEmpty) {
             return const Scaffold(
-                appBar: CustomAppBar(
-                  title: 'Booking Request',
-                  isLeading: true,
-                  isAction: false,
-                ),
-                body: Column(
-                  children: [
-                    CustomDivider(),
-                    BookingReqToggleWidget(
-                      bookingRequestData: '0',
-                    ),
-                    Center(child: Text("No requests found")),
-                  ],
-                ));
+              body: Center(child: Text("No booking requests found")),
+            );
           }
 
           final selectedStatus = toggleProvider.selectedStatus;
@@ -90,43 +79,50 @@ class RideBookingRequestScreen extends StatelessWidget {
                           separatorBuilder: (context, index) => CustomDivider(),
                           itemBuilder: (context, index) {
                             final request = filteredRequests[index];
-                            log('Request: ${request.id}');
                             return Column(
                               children: [
                                 RiderDetailsWidget(request: request),
                                 const SizedBox(height: 5.0),
                                 ReqRideWidget(ride: request),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0, vertical: 10),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: SmallButtonWidget(
-                                          color: AppColors.greenColor2,
-                                          text: 'Accept',
-                                          onPressed: () =>
-                                              log('Accepted: ${request.id}'),
-                                          isLoading: viewModel
-                                              .getBookingRequestLoading,
-                                          icon: Icons.check_circle_outlined,
+                                if (request.status == 'PENDING')
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 10),
+                                    child: Row(
+                                      children: [
+                                        Consumer<ConfirmBookingViewModel>(
+                                          builder: (context, value, child) {
+                                            return Expanded(
+                                              child: SmallButtonWidget(
+                                                color: AppColors.greenColor2,
+                                                text: 'Accept',
+                                                onPressed: () {
+                                                  value.confirmBooking(
+                                                      request.id!);
+                                                },
+                                                isLoading: value
+                                                    .getConfrimBookingLoading,
+                                                icon:
+                                                    Icons.check_circle_outlined,
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      ),
-                                      const SizedBox(width: 16),
-                                      Expanded(
-                                        child: SmallButtonWidget(
-                                          color: AppColors.redColor,
-                                          text: 'Decline',
-                                          onPressed: () =>
-                                              log('Declined: ${request.id}'),
-                                          isLoading: viewModel
-                                              .getBookingRequestLoading,
-                                          icon: Icons.cancel_outlined,
+                                        const SizedBox(width: 16),
+                                        Expanded(
+                                          child: SmallButtonWidget(
+                                            color: AppColors.redColor,
+                                            text: 'Decline',
+                                            onPressed: () =>
+                                                log('Declined: ${request.id}'),
+                                            isLoading: viewModel
+                                                .getBookingRequestLoading,
+                                            icon: Icons.cancel_outlined,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
                               ],
                             );
                           },

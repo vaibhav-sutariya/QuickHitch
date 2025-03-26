@@ -24,47 +24,94 @@ class RiderDetailsWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    request.rider!.firstName!,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.darkColor,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        request.rider!.firstName!,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.darkColor,
+                        ),
+                      ),
+                      if (request.status == 'ACCEPTED' ||
+                          request.status == 'REJECTED')
+                        Text(
+                          '  •  ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: request.status == 'ACCEPTED'
+                                ? AppColors.greenColor
+                                : AppColors.redColor,
+                          ),
+                        ),
+                      Text(
+                        request.status == 'ACCEPTED' ? 'Booked' : 'Rejected',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: request.status == 'ACCEPTED'
+                              ? AppColors.greenColor
+                              : AppColors.redColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    DateFormat('dd/MM/yyyy | hh:mm a')
-                        .format(DateTime.parse(request.ride!.departureDate!)),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.lightColor,
+                  if (request.status == 'PENDING')
+                    Text(
+                      DateFormat('dd/MM/yyyy | hh:mm a')
+                          .format(DateTime.parse(request.ride!.departureDate!)),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightColor,
+                      ),
                     ),
-                  ),
+                  if (request.status == 'ACCEPTED' ||
+                      request.status == 'REJECTED')
+                    Text(
+                      '${request.rider!.cCount!.driverRide} Rides Completed',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.lightColor,
+                      ),
+                    ),
+                  // Text(
+                  //   DateFormat('dd/MM/yyyy | hh:mm a')
+                  //       .format(DateTime.parse(request.ride!.departureDate!)),
+                  //   style: TextStyle(
+                  //     fontSize: 14,
+                  //     fontWeight: FontWeight.w400,
+                  //     color: AppColors.darkColor,
+                  //   ),
+                  // ),
                 ],
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                '\$${request.totalAmount}',
-                style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.darkColor,
-                    fontSize: 16),
-              ),
-              Text(
-                'Seats: ${request.noOfSeats}',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.lightColor,
+          if (request.status == 'PENDING')
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  '\$${request.totalAmount}',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.darkColor,
+                      fontSize: 16),
                 ),
-              ),
-            ],
-          )
+                Text(
+                  'Seats: ${request.noOfSeats}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.lightColor,
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );

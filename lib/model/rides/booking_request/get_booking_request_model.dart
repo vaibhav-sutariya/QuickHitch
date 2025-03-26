@@ -38,15 +38,15 @@ class BookingRequestData {
   int? distance;
   int? noOfSeats;
   int? originalAmount;
-  int? totalAmount;
+  double? totalAmount;
   String? status;
   String? paymentStatus;
-  Null cardId;
-  Null stripePaymentId;
-  Null refundId;
+  String? cardId;
+  String? stripePaymentId;
+  String? refundId;
   int? refundAmount;
   int? cancellationFee;
-  int? platformFee;
+  double? platformFee;
   int? discount;
   int? amountPayableToDriver;
   String? createdAt;
@@ -98,7 +98,12 @@ class BookingRequestData {
     distance = json['distance'];
     noOfSeats = json['noOfSeats'];
     originalAmount = json['originalAmount'];
-    totalAmount = json['totalAmount'];
+    // Handle totalAmount as either int or double
+    if (json['totalAmount'] != null) {
+      totalAmount = json['totalAmount'] is int
+          ? (json['totalAmount'] as int).toDouble()
+          : json['totalAmount'];
+    }
     status = json['status'];
     paymentStatus = json['paymentStatus'];
     cardId = json['cardId'];
@@ -106,7 +111,12 @@ class BookingRequestData {
     refundId = json['refundId'];
     refundAmount = json['refundAmount'];
     cancellationFee = json['cancellationFee'];
-    platformFee = json['platformFee'];
+    // Handle platformFee as either int or double
+    if (json['platformFee'] != null) {
+      platformFee = json['platformFee'] is int
+          ? (json['platformFee'] as int).toDouble()
+          : json['platformFee'];
+    }
     discount = json['discount'];
     amountPayableToDriver = json['amountPayableToDriver'];
     createdAt = json['createdAt'];
