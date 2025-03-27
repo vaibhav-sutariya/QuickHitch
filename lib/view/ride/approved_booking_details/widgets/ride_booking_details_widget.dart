@@ -57,7 +57,7 @@ class BookingBDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${data.platformFee!.toDouble()}.00',
+                '\$${(data.platformFee ?? 0) % 1 == 0 ? data.platformFee?.toInt() : data.platformFee?.toStringAsFixed(1)}',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -79,7 +79,7 @@ class BookingBDetailsWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                '\$${data.totalAmount!.toDouble()}.00',
+                '\$${(data.totalAmount ?? 0) % 1 == 0 ? data.totalAmount?.toInt() : data.totalAmount?.toStringAsFixed(1)}',
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
