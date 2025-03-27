@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
+import 'package:quick_hitch/configs/components/custom_tile.dart';
 import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/view/home/find/booking_details/widgets/b_details_widget.dart';
 import 'package:quick_hitch/view/home/find/booking_details/widgets/booking_ride_details_widget.dart';
-import 'package:quick_hitch/view/home/find/booking_details/widgets/custom_tile.dart';
 import 'package:quick_hitch/view_model/controller/bookings/get_booking_details_view_model.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
