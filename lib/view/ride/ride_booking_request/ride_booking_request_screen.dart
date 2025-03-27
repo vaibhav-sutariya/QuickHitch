@@ -46,9 +46,7 @@ class RideBookingRequestScreen extends StatelessWidget {
 
             Consumer<ThreeRideBookingReqToggleProvider>(
               builder: (context, toggleProvider, child) {
-                return BookingReqToggleWidget(
-                  bookingRequestData: '0',
-                );
+                return BookingReqToggleWidget();
               },
             ),
 

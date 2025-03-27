@@ -5,8 +5,7 @@ import 'package:quick_hitch/view_model/controller/rides/booking_request/get_ride
 import 'package:quick_hitch/view_model/services/ride_toggle/three_ride_toggle_provider.dart';
 
 class BookingReqToggleWidget extends StatelessWidget {
-  final String bookingRequestData;
-  const BookingReqToggleWidget({super.key, required this.bookingRequestData});
+  const BookingReqToggleWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,10 @@ class BookingReqToggleWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Text(
-                          bookingRequestData.toString(),
+                          viewModel.bookingRequestModel?.data != null
+                              ? viewModel.bookingRequestModel!.data!.length
+                                  .toString()
+                              : '0',
                           style: TextStyle(
                             fontSize: 12,
                             color: AppColors.darkColor,
