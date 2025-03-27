@@ -26,7 +26,7 @@ class ReqRideWidget extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: AppColors.darkColor,
                     )),
-                Text('\$${ride.ride!.pricePerSeat.toString()}',
+                Text('\$${ride.noOfSeats.toString()}',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -75,7 +75,7 @@ class ReqRideWidget extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 50),
-                Text('${ride.ride!.emptySeats.toString()} Seats',
+                Text('${ride.noOfSeats.toString()} Seats',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,

@@ -71,7 +71,7 @@ class ConfirmBookingRepository with ChangeNotifier {
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         log("Reject Booking Success Response: $responseData");
-        return responseData;
+        return ConfirmBookingModel.fromJson(responseData);
       } else {
         final errorData = jsonDecode(response.body);
         throw Exception(
