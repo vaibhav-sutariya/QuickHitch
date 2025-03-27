@@ -42,4 +42,5 @@ class RoutesName {
   static const String approveBookingScreen = 'approve_booking_Screen';
   static const String approvedBookingDetailsScreen =
       'approved_booking_details_Screen';
+  static const String invitePaddengersScreen = 'invite_passengers_Screen';
 }

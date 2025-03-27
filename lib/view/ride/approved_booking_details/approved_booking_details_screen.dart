@@ -5,6 +5,7 @@ import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/custom_tile.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/rides/booking_request/get_booking_request_model.dart';
 import 'package:quick_hitch/view/ride/approved_booking_details/widgets/booking_details_widget.dart';
 import 'package:quick_hitch/view/ride/approved_booking_details/widgets/ride_booking_details_widget.dart';
@@ -53,7 +54,8 @@ class ApprovedBookingDetailsScreen extends StatelessWidget {
           SizedBox(height: 2),
           CustomTile(
             text: 'Invite Passengers',
-            onPressed: () {},
+            onPressed: () =>
+                Navigator.pushNamed(context, RoutesName.invitePaddengersScreen),
           ),
           CustomTile(
             text: 'Message to ${bookingData.rider!.firstName}',
