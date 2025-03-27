@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
-import 'package:quick_hitch/model/rides/booking_request/get_booking_request_model.dart';
+import 'package:quick_hitch/model/rides/booking_request/confirm_booking_model.dart';
 
 class ApprovedBookingDetailsScreen extends StatelessWidget {
-  final BookingRequestData bookingData;
+  final ConfirmBookingData bookingData;
 
   const ApprovedBookingDetailsScreen({
     super.key,

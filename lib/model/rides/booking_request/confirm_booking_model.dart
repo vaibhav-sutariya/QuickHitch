@@ -14,7 +14,7 @@ class ConfirmBookingModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = message;
     if (this.data != null) {
-      data['data'] = this.data!.toJson();
+      data['data'] = this.data?.toJson(); // Use `?.` to prevent null errors
     }
     return data;
   }
@@ -37,9 +37,9 @@ class ConfirmBookingData {
   double? totalAmount;
   String? status;
   String? paymentStatus;
-  Null cardId;
+  String? cardId; // Changed from `Null` to `String?`
   String? stripePaymentId;
-  Null refundId;
+  String? refundId; // Changed from `Null` to `String?`
   int? refundAmount;
   int? cancellationFee;
   double? platformFee;
@@ -48,33 +48,34 @@ class ConfirmBookingData {
   String? createdAt;
   String? updatedAt;
 
-  ConfirmBookingData(
-      {this.id,
-      this.rideId,
-      this.rideStopId,
-      this.riderId,
-      this.origin,
-      this.destination,
-      this.originLat,
-      this.originLong,
-      this.destinationLat,
-      this.destinationLong,
-      this.distance,
-      this.noOfSeats,
-      this.originalAmount,
-      this.totalAmount,
-      this.status,
-      this.paymentStatus,
-      this.cardId,
-      this.stripePaymentId,
-      this.refundId,
-      this.refundAmount,
-      this.cancellationFee,
-      this.platformFee,
-      this.discount,
-      this.amountPayableToDriver,
-      this.createdAt,
-      this.updatedAt});
+  ConfirmBookingData({
+    this.id,
+    this.rideId,
+    this.rideStopId,
+    this.riderId,
+    this.origin,
+    this.destination,
+    this.originLat,
+    this.originLong,
+    this.destinationLat,
+    this.destinationLong,
+    this.distance,
+    this.noOfSeats,
+    this.originalAmount,
+    this.totalAmount,
+    this.status,
+    this.paymentStatus,
+    this.cardId,
+    this.stripePaymentId,
+    this.refundId,
+    this.refundAmount,
+    this.cancellationFee,
+    this.platformFee,
+    this.discount,
+    this.amountPayableToDriver,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   ConfirmBookingData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -83,32 +84,30 @@ class ConfirmBookingData {
     riderId = json['riderId'];
     origin = json['origin'];
     destination = json['destination'];
-    originLat = json['originLat'];
-    originLong = json['originLong'];
-    destinationLat = json['destinationLat'];
-    destinationLong = json['destinationLong'];
+    originLat = json['originLat'].toString();
+    originLong = json['originLong'].toString();
+    destinationLat = json['destinationLat'].toString();
+    destinationLong = json['destinationLong'].toString();
     distance = json['distance'];
     noOfSeats = json['noOfSeats'];
     originalAmount = json['originalAmount'];
-    // Handle totalAmount as either int or double
-    if (json['totalAmount'] != null) {
-      totalAmount = json['totalAmount'] is int
-          ? (json['totalAmount'] as int).toDouble()
-          : json['totalAmount'];
-    }
+
+    // Handle totalAmount safely
+    totalAmount = json['totalAmount']?.toDouble();
+
     status = json['status'];
     paymentStatus = json['paymentStatus'];
-    cardId = json['cardId'];
+
+    // Check for null values
+    cardId = json['cardId'] ?? '';
     stripePaymentId = json['stripePaymentId'];
-    refundId = json['refundId'];
+    refundId = json['refundId'] ?? '';
     refundAmount = json['refundAmount'];
     cancellationFee = json['cancellationFee'];
-    // Handle platformFee as either int or double
-    if (json['platformFee'] != null) {
-      platformFee = json['platformFee'] is int
-          ? (json['platformFee'] as int).toDouble()
-          : json['platformFee'];
-    }
+
+    // Handle platformFee safely
+    platformFee = json['platformFee']?.toDouble();
+
     discount = json['discount'];
     amountPayableToDriver = json['amountPayableToDriver'];
     createdAt = json['createdAt'];

@@ -33,18 +33,17 @@ class ConfirmBookingViewModel with ChangeNotifier {
       var data = {
         'bookingId': bookingId,
       };
-      final confirmBookingData = await ConfirmBookingRepository()
-          .confirmBooking(data, token)
-          .then((value) async {
-        await Future.delayed(Duration(seconds: 1));
-        Navigator.pushNamed(
-          context,
-          RoutesName.approvedBookingDetailsScreen,
-          arguments: _confirmBookingModel!.data,
-        );
-      });
+      final confirmBookingData =
+          await ConfirmBookingRepository().confirmBooking(data, token);
 
       _confirmBookingModel = confirmBookingData;
+
+      await Future.delayed(Duration(seconds: 1));
+      Navigator.pushNamed(
+        context,
+        RoutesName.approvedBookingDetailsScreen,
+        arguments: _confirmBookingModel!.data,
+      );
     } catch (e) {
       log("Confirm Booking rides: $e");
     } finally {
