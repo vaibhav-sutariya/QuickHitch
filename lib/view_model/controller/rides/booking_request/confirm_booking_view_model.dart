@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/model/rides/booking_request/confirm_booking_model.dart';
 import 'package:quick_hitch/repository/ride_repository/bookings/confirm_booking_repository.dart';
 import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
@@ -34,8 +35,13 @@ class ConfirmBookingViewModel with ChangeNotifier {
       };
       final confirmBookingData =
           await ConfirmBookingRepository().confirmBooking(data, token);
-      _confirmBookingModel = confirmBookingData;
       await Future.delayed(Duration(seconds: 1));
+      Navigator.pushNamed(
+        context,
+        RoutesName.approvedBookingDetailsScreen,
+        arguments: _confirmBookingModel!.data,
+      );
+      _confirmBookingModel = confirmBookingData;
     } catch (e) {
       log("Confirm Booking rides: $e");
     } finally {

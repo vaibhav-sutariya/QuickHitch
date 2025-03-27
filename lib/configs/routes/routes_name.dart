@@ -40,4 +40,6 @@ class RoutesName {
   static const String refundDetailsScreen = 'refund_details_Screen';
   static const String rideBookingRequestScreen = 'ride_booking_request_Screen';
   static const String approveBookingScreen = 'approve_booking_Screen';
+  static const String approvedBookingDetailsScreen =
+      'approved_booking_details_Screen';
 }

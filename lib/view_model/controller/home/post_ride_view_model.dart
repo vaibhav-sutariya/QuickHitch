@@ -35,7 +35,7 @@ class PostRideViewModel with ChangeNotifier {
   TimeOfDay? _selectedTime;
   DateTime? _returnDate;
   TimeOfDay? _returnTime;
-  String? _pricePerSeat;
+  int? _pricePerSeat;
   String? _description;
   String _selectedLuggage = 'M';
   int _backRowSeating = 0;
@@ -44,7 +44,7 @@ class PostRideViewModel with ChangeNotifier {
   TimeOfDay? get selectedTime => _selectedTime;
   DateTime? get returnDate => _returnDate;
   TimeOfDay? get returnTime => _returnTime;
-  String? get pricePerSeat => _pricePerSeat;
+  int? get pricePerSeat => _pricePerSeat;
   String? get description => _description;
   String get selectedLuggage => _selectedLuggage;
   int get backRowSeating => _backRowSeating;
@@ -179,8 +179,6 @@ class PostRideViewModel with ChangeNotifier {
     //   'order': order,
     // });
 
-    int pricePerSeatValue = int.tryParse(_pricePerSeat ?? '0') ?? 0;
-
     for (int i = 0; i < orderedWaypoints.length - 1; i++) {
       var origin = orderedWaypoints[i];
       var destination = orderedWaypoints[i + 1];
@@ -203,7 +201,7 @@ class PostRideViewModel with ChangeNotifier {
         'distance': segmentDistance.round(),
         'emptySeats': _selectedSeat,
         'pricePerSeat': _calculatePriceForDistance(
-            pricePerSeatValue, segmentDistance.round()),
+            _pricePerSeat!.toInt(), segmentDistance.round()),
       });
     }
 
@@ -221,7 +219,7 @@ class PostRideViewModel with ChangeNotifier {
             Geolocator.distanceBetween(originLat, originLng, destLat, destLng) /
                 1000; // Convert to km
         int segmentPrice = _calculatePriceForDistance(
-            pricePerSeatValue, segmentDistance.round());
+            pricePerSeat!.toInt(), segmentDistance.round());
 
         _rideStops.add({
           'origin': origin['name'],
@@ -248,7 +246,7 @@ class PostRideViewModel with ChangeNotifier {
   }
 
   void setPricePerSeat(String price) {
-    _pricePerSeat = price;
+    _pricePerSeat = price.isNotEmpty ? int.tryParse(price) : null;
     log('Price Per Seat: $_pricePerSeat');
     generateRideSegments();
     notifyListeners();
@@ -461,13 +459,9 @@ class PostRideViewModel with ChangeNotifier {
             : 0.0,
         'departureDate': _combineDateTime(_selectedDate, _selectedTime),
         'description': description,
-        'emptySeats': (pricePerSeat != null &&
-                int.tryParse(pricePerSeat!) != null &&
-                int.parse(pricePerSeat!) >= 0)
-            ? double.tryParse(pricePerSeat ?? '0.0')
-            : 0.0,
+        'emptySeats': _selectedSeat,
         'vehicleId': selectedVehicle?.id.toString(),
-        'pricePerSeat': 10,
+        'pricePerSeat': pricePerSeat,
         'luggageSize': selectedLuggage,
         'paymentType': paymentType,
         'backRowSeating': backRowSeating >= 2 ? backRowSeating : 2,
