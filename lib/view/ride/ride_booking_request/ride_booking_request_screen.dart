@@ -129,7 +129,7 @@ class RideBookingRequestScreen extends StatelessWidget {
                                                   text: 'Decline',
                                                   onPressed: () {
                                                     value.rejectBooking(
-                                                        request.id!);
+                                                        request.id!, context);
                                                   },
                                                   isLoading: value
                                                       .getRejectBookingLoading,

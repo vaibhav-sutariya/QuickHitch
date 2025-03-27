@@ -68,7 +68,7 @@ class ApproveBookingScreen extends StatelessWidget {
                         color: AppColors.greenColor2,
                         text: 'Accept',
                         onPressed: () {
-                          value.confirmBooking(bookingData.id!);
+                          value.confirmBooking(bookingData.id!, context);
                         },
                         isLoading: value.getConfrimBookingLoading,
                         icon: Icons.check_circle_outlined,
@@ -80,7 +80,7 @@ class ApproveBookingScreen extends StatelessWidget {
                         color: AppColors.redColor,
                         text: 'Decline',
                         onPressed: () {
-                          value.rejectBooking(bookingData.id!);
+                          value.rejectBooking(bookingData.id!, context);
                         },
                         isLoading: value.getRejectBookingLoading,
                         icon: Icons.cancel_outlined,
