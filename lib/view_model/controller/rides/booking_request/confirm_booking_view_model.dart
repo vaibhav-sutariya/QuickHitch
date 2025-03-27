@@ -27,7 +27,7 @@ class ConfirmBookingViewModel with ChangeNotifier {
 
   Future<void> confirmBooking(String bookingId) async {
     try {
-      setRejectBookingLoading(true);
+      setConfrimBookingLoading(true);
       String token = await getToken();
       var data = {
         'bookingId': bookingId,
@@ -38,14 +38,14 @@ class ConfirmBookingViewModel with ChangeNotifier {
     } catch (e) {
       log("Confirm Booking rides: $e");
     } finally {
-      setRejectBookingLoading(false);
+      setConfrimBookingLoading(false);
       notifyListeners();
     }
   }
 
   Future<void> rejectBooking(String bookingId) async {
     try {
-      setConfrimBookingLoading(true);
+      setRejectBookingLoading(true);
       String token = await getToken();
       var data = {
         'bookingId': bookingId,
@@ -56,7 +56,7 @@ class ConfirmBookingViewModel with ChangeNotifier {
     } catch (e) {
       log("Reject Booking rides: $e");
     } finally {
-      setConfrimBookingLoading(false);
+      setRejectBookingLoading(false);
       notifyListeners();
     }
   }

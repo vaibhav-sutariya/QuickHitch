@@ -6,6 +6,7 @@ import 'package:quick_hitch/configs/colors/app_colors.dart';
 import 'package:quick_hitch/configs/components/custom_app_bar.dart';
 import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/configs/components/small_button_widget.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/booking_req_toggle_widget.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/req_ride_widget.dart';
 import 'package:quick_hitch/view/ride/ride_booking_request/widgets/rider_details_widget.dart';
@@ -104,8 +105,16 @@ class RideBookingRequestScreen extends StatelessWidget {
                                                   color: AppColors.greenColor2,
                                                   text: 'Accept',
                                                   onPressed: () {
-                                                    value.confirmBooking(
-                                                        request.id!);
+                                                    // value.confirmBooking(
+                                                    //     request.id!);
+                                                    Navigator.pushNamed(
+                                                      context,
+                                                      RoutesName
+                                                          .approveBookingScreen,
+                                                      arguments: viewModel
+                                                          .bookingRequestModel!
+                                                          .data![index],
+                                                    );
                                                   },
                                                   isLoading: value
                                                       .getConfrimBookingLoading,
