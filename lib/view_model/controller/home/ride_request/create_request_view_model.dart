@@ -117,7 +117,7 @@ class CreateRequestViewModel with ChangeNotifier {
         log("Ride Request ID: $rideRequestId");
 
         List matchingRides = response['data']['matchingRides'] ?? [];
-
+        await Future.delayed(Duration(seconds: 1));
         if (matchingRides.isNotEmpty) {
           log("Matching Ride ID: ${matchingRides[0]['id']}");
           Navigator.pushNamed(
