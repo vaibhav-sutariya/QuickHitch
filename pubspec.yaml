@@ -47,7 +47,6 @@ dependencies:
   flutter_dotenv: ^5.2.1
   intl: ^0.20.2
   image_picker: ^1.1.2
-  equatable: ^2.0.7
   flutter_rating_bar: ^4.0.1
   lucide_icons: ^0.257.0
   shimmer: ^3.0.0

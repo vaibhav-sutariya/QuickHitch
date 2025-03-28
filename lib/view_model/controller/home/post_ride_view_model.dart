@@ -372,13 +372,25 @@ class PostRideViewModel with ChangeNotifier {
     if (date == null) return null;
     if (time == null) return date.toUtc().toIso8601String();
 
-    return DateTime(
+    // Ensure DateTime is in the correct timezone
+    DateTime localDateTime = DateTime(
       date.year,
       date.month,
       date.day,
       time.hour,
       time.minute,
-    ).toUtc().toIso8601String();
+    );
+
+    // Convert to UTC by adjusting the timezone offset manually
+    DateTime utcDateTime = DateTime.utc(
+      localDateTime.year,
+      localDateTime.month,
+      localDateTime.day,
+      localDateTime.hour,
+      localDateTime.minute,
+    );
+
+    return utcDateTime.toIso8601String();
   }
 
   List<Map<String, dynamic>> _formatRideWaypoints() {
@@ -465,7 +477,7 @@ class PostRideViewModel with ChangeNotifier {
         'luggageSize': selectedLuggage,
         'paymentType': paymentType,
         'backRowSeating': backRowSeating >= 2 ? backRowSeating : 2,
-        'returnDate': _combineDateTime(_returnDate, _returnTime),
+        'returnDate': _combineDateTime(_selectedDate, _selectedTime),
         'rideWaypoints': _formatRideWaypoints(),
         'rideStops': _rideStops,
       };
@@ -494,10 +506,6 @@ class PostRideViewModel with ChangeNotifier {
     _stopLocations.clear();
     _rideStops.clear();
     _isReturn = false;
-    _selectedDate = null;
-    _selectedTime = null;
-    _returnDate = null;
-    _returnTime = null;
     _pricePerSeat = null;
     _description = null;
     _selectedLuggage = 'M';

@@ -25,14 +25,14 @@ class VehicleWidget extends StatelessWidget {
               fontSize: 14,
             ),
           ),
-          Text(
-            '${ride.vehicle!.make!.name.toString()}, ${ride.vehicle!.model.toString()}',
-            style: TextStyle(
-              color: AppColors.lightColor,
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-            ),
-          ),
+          // Text(
+          //   '${ride.vehicle!.make!.name.toString()}, ${ride.vehicle!.model.toString()}',
+          //   style: TextStyle(
+          //     color: AppColors.lightColor,
+          //     fontWeight: FontWeight.w400,
+          //     fontSize: 14,
+          //   ),
+          // ),
         ],
       ),
     );

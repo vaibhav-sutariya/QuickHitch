@@ -35,7 +35,10 @@ class RideWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${DateFormat('dd/MM/yyyy, EEEE').format(viewModel.selectedDate!)} | ${DateFormat('hh:mm a').format(DateTime(0, 1, 1, viewModel.selectedTime!.hour, viewModel.selectedTime!.minute))}',
+          viewModel.selectedDate != null && viewModel.selectedTime != null
+              ? '${DateFormat('dd/MM/yyyy, EEEE').format(viewModel.selectedDate!)} | '
+                  '${DateFormat('hh:mm a').format(DateTime(0, 1, 1, viewModel.selectedTime!.hour, viewModel.selectedTime!.minute))}'
+              : 'Select Date & Time', // Default text when null
           style: TextStyle(
             color: AppColors.darkColor,
             fontSize: 14.0,

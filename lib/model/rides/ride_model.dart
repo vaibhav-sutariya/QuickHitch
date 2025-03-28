@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-RideModel rideModelFromJson(String str) => RideModel.fromJson(json.decode(str));
-
 class RideModel {
   String? message;
   int? totalPages;
@@ -49,23 +45,23 @@ class Rides {
   int? emptySeats;
   int? pricePerSeat;
   String? driverId;
-  Null riderId;
+  String? riderId;
   String? vehicleId;
   String? status;
   String? rideBookings;
   String? paymentType;
   String? luggage;
   int? backRowSeating;
-  Null returnTripId;
+  String? returnTripId;
   String? createdAt;
   String? updatedAt;
   Null userId;
   List<RideStops>? rideStops;
-  Null returnTrip;
+  ReturnTrip? returnTrip;
   Vehicle? vehicle;
   Driver? driver;
   List<RideWaypoints>? rideWaypoints;
-  List<Null>? bookings;
+  List<dynamic>? bookings;
   bool? isCreated;
   bool? isBooked;
   bool? isRequested;
@@ -146,7 +142,9 @@ class Rides {
         rideStops!.add(RideStops.fromJson(v));
       });
     }
-    returnTrip = json['returnTrip'];
+    returnTrip = json['returnTrip'] != null
+        ? ReturnTrip.fromJson(json['returnTrip'])
+        : null;
     vehicle =
         json['vehicle'] != null ? Vehicle.fromJson(json['vehicle']) : null;
     driver = json['driver'] != null ? Driver.fromJson(json['driver']) : null;
@@ -156,12 +154,13 @@ class Rides {
         rideWaypoints!.add(RideWaypoints.fromJson(v));
       });
     }
-    // if (json['bookings'] != null) {
-    //   bookings = <Null>[];
-    //   json['bookings'].forEach((v) {
-    //     bookings!.add(Null.fromJson(v));
-    //   });
-    // }
+    if (json['bookings'] != null) {
+      bookings =
+          <dynamic>[]; // Replace Null with dynamic or a specific type if known
+      json['bookings'].forEach((v) {
+        bookings!.add(v); // Add the raw value or handle it appropriately
+      });
+    }
     isCreated = json['isCreated'];
     isBooked = json['isBooked'];
     isRequested = json['isRequested'];
@@ -201,7 +200,9 @@ class Rides {
     if (rideStops != null) {
       data['rideStops'] = rideStops!.map((v) => v.toJson()).toList();
     }
-    data['returnTrip'] = returnTrip;
+    if (returnTrip != null) {
+      data['returnTrip'] = returnTrip!.toJson();
+    }
     if (vehicle != null) {
       data['vehicle'] = vehicle!.toJson();
     }
@@ -211,9 +212,9 @@ class Rides {
     if (rideWaypoints != null) {
       data['rideWaypoints'] = rideWaypoints!.map((v) => v.toJson()).toList();
     }
-    // if (bookings != null) {
-    //   data['bookings'] = bookings!.map((v) => v.toJson()).toList();
-    // }
+    if (bookings != null) {
+      data['bookings'] = bookings?.map((v) => v).toList();
+    }
     data['isCreated'] = isCreated;
     data['isBooked'] = isBooked;
     data['isRequested'] = isRequested;
@@ -290,6 +291,119 @@ class RideStops {
     data['isMainRoute'] = isMainRoute;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
+    return data;
+  }
+}
+
+class ReturnTrip {
+  String? id;
+  String? origin;
+  String? destination;
+  String? originLat;
+  String? originLong;
+  String? destinationLat;
+  String? destinationLong;
+  int? distance;
+  String? departureDate;
+  String? originTimeZone;
+  String? description;
+  int? emptySeats;
+  int? pricePerSeat;
+  String? driverId;
+  Null riderId;
+  String? vehicleId;
+  String? status;
+  String? rideBookings;
+  String? paymentType;
+  String? luggage;
+  int? backRowSeating;
+  Null returnTripId;
+  String? createdAt;
+  String? updatedAt;
+  Null userId;
+
+  ReturnTrip(
+      {this.id,
+      this.origin,
+      this.destination,
+      this.originLat,
+      this.originLong,
+      this.destinationLat,
+      this.destinationLong,
+      this.distance,
+      this.departureDate,
+      this.originTimeZone,
+      this.description,
+      this.emptySeats,
+      this.pricePerSeat,
+      this.driverId,
+      this.riderId,
+      this.vehicleId,
+      this.status,
+      this.rideBookings,
+      this.paymentType,
+      this.luggage,
+      this.backRowSeating,
+      this.returnTripId,
+      this.createdAt,
+      this.updatedAt,
+      this.userId});
+
+  ReturnTrip.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    origin = json['origin'];
+    destination = json['destination'];
+    originLat = json['originLat'];
+    originLong = json['originLong'];
+    destinationLat = json['destinationLat'];
+    destinationLong = json['destinationLong'];
+    distance = json['distance'];
+    departureDate = json['departureDate'];
+    originTimeZone = json['originTimeZone'];
+    description = json['description'];
+    emptySeats = json['emptySeats'];
+    pricePerSeat = json['pricePerSeat'];
+    driverId = json['driverId'];
+    riderId = json['riderId'];
+    vehicleId = json['vehicleId'];
+    status = json['status'];
+    rideBookings = json['rideBookings'];
+    paymentType = json['paymentType'];
+    luggage = json['luggage'];
+    backRowSeating = json['backRowSeating'];
+    returnTripId = json['returnTripId'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    userId = json['userId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['origin'] = origin;
+    data['destination'] = destination;
+    data['originLat'] = originLat;
+    data['originLong'] = originLong;
+    data['destinationLat'] = destinationLat;
+    data['destinationLong'] = destinationLong;
+    data['distance'] = distance;
+    data['departureDate'] = departureDate;
+    data['originTimeZone'] = originTimeZone;
+    data['description'] = description;
+    data['emptySeats'] = emptySeats;
+    data['pricePerSeat'] = pricePerSeat;
+    data['driverId'] = driverId;
+    data['riderId'] = riderId;
+    data['vehicleId'] = vehicleId;
+    data['status'] = status;
+    data['rideBookings'] = rideBookings;
+    data['paymentType'] = paymentType;
+    data['luggage'] = luggage;
+    data['backRowSeating'] = backRowSeating;
+    data['returnTripId'] = returnTripId;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['userId'] = userId;
     return data;
   }
 }
