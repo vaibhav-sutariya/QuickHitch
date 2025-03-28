@@ -29,6 +29,7 @@ import 'package:quick_hitch/view/home/post/add_stops/add_stops_screen.dart';
 import 'package:quick_hitch/view/home/post/post_ride/post_ride_screen.dart';
 import 'package:quick_hitch/view/home/post/view_ride/view_ride_screen.dart';
 import 'package:quick_hitch/view/home/ride_request/create_ride_request_screen.dart';
+import 'package:quick_hitch/view/home/ride_request/matching_rides/matching_rides_screen.dart';
 import 'package:quick_hitch/view/profile/change_password/change_password_screen.dart';
 import 'package:quick_hitch/view/profile/update_profile/update_profile_screen.dart';
 import 'package:quick_hitch/view/profile/update_travel_preferences/update_travel_preferences_screen.dart';
@@ -205,6 +206,11 @@ class Routes {
       case RoutesName.createRideRequestScreen:
         return MaterialPageRoute(
             builder: (BuildContext context) => CreateRideRequestScreen());
+      case RoutesName.matchingRidesScreen:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => MatchingRidesScreen(
+                  requestId: settings.arguments as String,
+                ));
       // case RoutesName.login:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const LoginView());

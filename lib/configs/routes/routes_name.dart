@@ -44,4 +44,5 @@ class RoutesName {
       'approved_booking_details_Screen';
   static const String invitePaddengersScreen = 'invite_passengers_Screen';
   static const String createRideRequestScreen = 'create_ride_request_Screen';
+  static const String matchingRidesScreen = 'matching_rides_Screen';
 }

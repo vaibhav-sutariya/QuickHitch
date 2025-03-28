@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:quick_hitch/configs/routes/routes_name.dart';
 import 'package:quick_hitch/configs/utils.dart';
 import 'package:quick_hitch/repository/ride_request/create_ride_request_repository.dart';
 import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
@@ -104,26 +105,42 @@ class CreateRequestViewModel with ChangeNotifier {
         'description': description,
         'emptySeats': _selectedSeat,
       };
+
       final response =
           await CreateRideRequestRepository().createRideRequest(data, token);
-      // ✅ Check response status correctly
-      if (response['status'] == 201 ||
-          response['message'] == "Ride request created successfully") {
+
+      if (response['message']?.toLowerCase() ==
+          "ride request created successfully") {
         log("Create Ride Request Successfully: $response");
+
+        String rideRequestId = response['data']['rideRequest']['id'] ?? "N/A";
+        log("Ride Request ID: $rideRequestId");
+
+        List matchingRides = response['data']['matchingRides'] ?? [];
+
+        if (matchingRides.isNotEmpty) {
+          log("Matching Ride ID: ${matchingRides[0]['id']}");
+          Navigator.pushNamed(
+            context,
+            RoutesName.matchingRidesScreen,
+            arguments: rideRequestId,
+          );
+        } else {
+          log("No matching rides found");
+        }
+
         Utils.flushBarSuccessMessage(
-            'Ride Request Created SuccessFully', context);
-        // // await Future.delayed(Duration(seconds: 1));
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, RoutesName.bottomNavBar, (route) => false);
+            'Ride Request Created Successfully', context);
+
         clearData();
         return response;
       } else {
         throw Exception("Create Ride Request failed: ${response['message']}");
       }
     } catch (e) {
-      log("Create Ride Request Error: $e"); // Add this log
+      log("Create Ride Request Error: $e");
       throw Exception("Create Ride Request failed: $e");
-    } finally {}
+    }
   }
 
   void clearData() {
