@@ -5,6 +5,7 @@ import 'package:quick_hitch/configs/components/custom_divider.dart';
 import 'package:quick_hitch/view/home/find/ride_found/widgets/bottom_slidebar/filter_bottom_sheet.dart';
 import 'package:quick_hitch/view/home/find/ride_found/widgets/ride_tile_widget.dart';
 import 'package:quick_hitch/view/home/find/ride_found/widgets/search_toggle.dart';
+import 'package:quick_hitch/view/home/widgets/custom_floating_action_button.dart';
 import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 
 class RideFoundScreen extends StatelessWidget {
@@ -76,17 +77,7 @@ class RideFoundScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        shape: CircleBorder(),
-        backgroundColor: AppColors.primaryColor,
-        onPressed: () {
-          // Navigator.pop(context);
-        },
-        child: const Icon(
-          Icons.add,
-          color: AppColors.whiteColor,
-        ),
-      ),
+      floatingActionButton: CustomExpandableFAB(),
     );
   }
 }
