@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:quick_hitch/configs/utils.dart';
+import 'package:quick_hitch/repository/ride_request/create_ride_request_repository.dart';
+import 'package:quick_hitch/view_model/services/get_data/get_token.dart';
 
 class CreateRequestViewModel with ChangeNotifier {
   String? departureLocation;
@@ -80,6 +83,60 @@ class CreateRequestViewModel with ChangeNotifier {
   void setDescription(String description) {
     _description = description;
     log('Description: $_description');
+    notifyListeners();
+  }
+
+  Future<Map<String, dynamic>> createRideRequest(BuildContext context) async {
+    try {
+      String token = await getToken();
+
+      final data = {
+        'origin': departureLocation,
+        'destination': destinationLocation,
+        'originLat': departureLat.toString(),
+        'originLong': departureLng.toString(),
+        'destinationLat': destinationLat.toString(),
+        'destinationLong': destinationLng.toString(),
+        'distance': _distance != null
+            ? double.tryParse(_distance?.toStringAsFixed(2) ?? '0.0')
+            : 0.0,
+        'departureDate': _selectedDate.toString(),
+        'description': description,
+        'emptySeats': _selectedSeat,
+      };
+      final response =
+          await CreateRideRequestRepository().createRideRequest(data, token);
+      // ✅ Check response status correctly
+      if (response['status'] == 201 ||
+          response['message'] == "Ride created successfully") {
+        log("Create Ride Request Successfully: $response");
+        Utils.flushBarSuccessMessage(
+            'Ride Request Created SuccessFully', context);
+        // // await Future.delayed(Duration(seconds: 1));
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, RoutesName.bottomNavBar, (route) => false);
+        clearData();
+        return response;
+      } else {
+        throw Exception("Create Ride Request failed: ${response['message']}");
+      }
+    } catch (e) {
+      log("Create Ride Request Error: $e"); // Add this log
+      throw Exception("Create Ride Request failed: $e");
+    } finally {}
+  }
+
+  void clearData() {
+    departureLocation = null;
+    departureLat = null;
+    departureLng = null;
+    destinationLocation = null;
+    destinationLat = null;
+    destinationLng = null;
+    _distance = null;
+    _selectedDate = null;
+    _description = null;
+    _selectedSeat = 1;
     notifyListeners();
   }
 }

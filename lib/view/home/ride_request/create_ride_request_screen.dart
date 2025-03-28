@@ -21,14 +21,14 @@ class CreateRideRequestScreen extends StatelessWidget {
         isLeading: true,
         isAction: false,
       ),
-      body: Column(
-        children: [
-          // Expanded to push the button to the bottom
-          Expanded(
-            child: SingleChildScrollView(
-              child: Consumer<CreateRequestViewModel>(
-                builder: (context, viewModel, child) {
-                  return Column(
+      body: Consumer<CreateRequestViewModel>(
+        builder: (context, viewModel, child) {
+          return Column(
+            children: [
+              // Expanded to push the button to the bottom
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
                       CustomDivider(),
                       Padding(
@@ -77,21 +77,23 @@ class CreateRideRequestScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                  );
-                },
+                  ),
+                ),
               ),
-            ),
-          ),
 
-          // Custom Elevated Button at Bottom
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: CustomElevatedButton(
-              text: 'Post Request',
-              press: () {},
-            ),
-          ),
-        ],
+              // Custom Elevated Button at Bottom
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomElevatedButton(
+                  text: 'Post Request',
+                  press: () {
+                    viewModel.createRideRequest(context);
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
