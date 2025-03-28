@@ -46,52 +46,59 @@ import 'package:quick_hitch/view/splash/splash_view.dart';
 class Routes {
   Routes._();
   static Route<dynamic> generateRoute(RouteSettings settings) {
+    PageRouteBuilder slideTransition(Widget page) {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          var begin = const Offset(1.0, 0.0); // Start from right
+          var end = Offset.zero; // End at center
+          var curve = Curves.easeInOutQuart; // Smooth animation curve
+
+          var tween = Tween(begin: begin, end: end).chain(
+            CurveTween(curve: curve),
+          );
+
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 300),
+      );
+    }
+
     switch (settings.name) {
       case RoutesName.splash:
         return MaterialPageRoute(
             builder: (BuildContext context) => const SplashView());
-
-      // auth screens
       case RoutesName.login:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const SigninWelcomeScreen());
+        return slideTransition(const SigninWelcomeScreen());
       case RoutesName.signUp:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const SignUpWelcomeScreen());
+        return slideTransition(const SignUpWelcomeScreen());
       case RoutesName.emailSignIn:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => SignInScreen());
+        return slideTransition(SignInScreen());
       case RoutesName.emailSignUp:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => SignUpScreen());
+        return slideTransition(SignUpScreen());
       case RoutesName.changePasswordScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ChangePasswordScreen());
+        return slideTransition(const ChangePasswordScreen());
       case RoutesName.home:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen());
+        return slideTransition(const HomeScreen());
       case RoutesName.bottomNavBar:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => BottomNavBar());
+        return slideTransition(const BottomNavBar());
       case RoutesName.forgotPasswordScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ForgotPasswordScreen());
+        return slideTransition(const ForgotPasswordScreen());
       case RoutesName.passwordResetLinkScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) =>
-                PasswordResetLinkScreen(email: settings.arguments as String));
+        return slideTransition(
+            PasswordResetLinkScreen(email: settings.arguments as String));
       case RoutesName.updateProfileScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => UpdateProfileScreen());
+        return slideTransition(const UpdateProfileScreen());
       case RoutesName.updateTravelPreferenceScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => UpdateTravelPreferencesScreen());
+        return slideTransition(const UpdateTravelPreferencesScreen());
       case RoutesName.userProfileScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => UserProfileScreen());
+        return slideTransition(const UserProfileScreen());
       case RoutesName.vehicleDetailScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => VehiclesDetailsScreen());
+        return slideTransition(const VehiclesDetailsScreen());
+
       case RoutesName.addNewVehicleScreen:
         final arguments = settings.arguments;
         if (arguments is VehicleModel) {
@@ -107,110 +114,83 @@ class Routes {
           );
         }
       case RoutesName.postRideScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => PostRideScreen());
+        return slideTransition(const PostRideScreen());
       case RoutesName.addStopsScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => AddStopsScreen());
+        return slideTransition(const AddStopsScreen());
       case RoutesName.viewRideScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ViewRideScreen());
+        return slideTransition(const ViewRideScreen());
       case RoutesName.rideDeatilsScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => RideDetailsScreen(
-                  arguments: settings.arguments as Map<String, dynamic>,
-                ));
+        return slideTransition(RideDetailsScreen(
+          arguments: settings.arguments as Map<String, dynamic>,
+        ));
       case RoutesName.findRideScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => FindRideScreen());
+        return slideTransition(const FindRideScreen());
       case RoutesName.noRideScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => NoRideScreen());
+        return slideTransition(const NoRideScreen());
       case RoutesName.rideFoundScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => RideFoundScreen());
+        return slideTransition(const RideFoundScreen());
       case RoutesName.foundViewRideScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => FoundViewRideScreen(
-                  ride: settings.arguments as dynamic,
-                ));
+        return slideTransition(FoundViewRideScreen(
+          ride: settings.arguments as dynamic,
+        ));
       case RoutesName.bookingInstructionScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => BookingInstructionScreen(
-                  ride: settings.arguments as dynamic,
-                ));
+        return slideTransition(BookingInstructionScreen(
+          ride: settings.arguments as dynamic,
+        ));
       case RoutesName.seatPriceScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => SeatPriceScren(
-                  ride: settings.arguments as dynamic,
-                ));
+        return slideTransition(SeatPriceScren(
+          ride: settings.arguments as dynamic,
+        ));
       case RoutesName.paymentScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => PaymentScreen(
-                  ride: settings.arguments as dynamic,
-                ));
+        return slideTransition(PaymentScreen(
+          ride: settings.arguments as dynamic,
+        ));
       case RoutesName.addNewCardScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => AddNewCardScreen());
+        return slideTransition(const AddNewCardScreen());
       case RoutesName.bookingSummaryScreen:
         final args = settings.arguments as Map<String, dynamic>;
-        return MaterialPageRoute(
-          builder: (BuildContext context) => BookingSummaryScreen(
-            ride: args['ride'] as Rides,
-            card: args['card'] as CardDatas,
-          ),
-        );
+        return slideTransition(BookingSummaryScreen(
+          ride: args['ride'] as Rides,
+          card: args['card'] as CardDatas,
+        ));
       case RoutesName.paymetPoliciesScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => PaymentPolicyScreen());
+        return slideTransition(const PaymentPolicyScreen());
       case RoutesName.bookingRequestScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => BookingRequestScreen(
-                  bookingId: settings.arguments as String,
-                ));
+        return slideTransition(BookingRequestScreen(
+          bookingId: settings.arguments as String,
+        ));
       case RoutesName.bookingDetailsScreen:
-        // Correct casting
-        return MaterialPageRoute(
-          builder: (BuildContext context) => BookingDetailsScreen(
-              bookingId: settings.arguments as String // Handle null safety
-              ),
-        );
-
+        return slideTransition(BookingDetailsScreen(
+            bookingId: settings.arguments as String // Handle null safety
+            ));
       case RoutesName.cancelBookingScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => CancelBookingScreen(
-                  booking: settings.arguments as dynamic,
-                ));
+        return slideTransition(CancelBookingScreen(
+          booking: settings.arguments as dynamic,
+        ));
       case RoutesName.refundDetailsScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) =>
-                RefundDetailsScreen(bookingId: settings.arguments as String));
+        return slideTransition(
+            RefundDetailsScreen(bookingId: settings.arguments as String));
       case RoutesName.rideBookingRequestScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => RideBookingRequestScreen(
-                  rideId: settings.arguments as String,
-                ));
+        return slideTransition(RideBookingRequestScreen(
+          rideId: settings.arguments as String,
+        ));
       case RoutesName.approveBookingScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ApproveBookingScreen(
-                  bookingData: settings.arguments as dynamic,
-                ));
+        return slideTransition(ApproveBookingScreen(
+          bookingData: settings.arguments as dynamic,
+        ));
       case RoutesName.approvedBookingDetailsScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => ApprovedBookingDetailsScreen(
-                  bookingData: settings.arguments as dynamic,
-                ));
+        return slideTransition(ApprovedBookingDetailsScreen(
+          bookingData: settings.arguments as dynamic,
+        ));
       case RoutesName.invitePaddengersScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => InvitePassengersScreen());
+        return slideTransition(const InvitePassengersScreen());
       case RoutesName.createRideRequestScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => CreateRideRequestScreen());
+        return slideTransition(const CreateRideRequestScreen());
       case RoutesName.matchingRidesScreen:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => MatchingRidesScreen(
-                  requestId: settings.arguments as String,
-                ));
+        return slideTransition(MatchingRidesScreen(
+          requestId: settings.arguments as String,
+        ));
+
       // case RoutesName.login:
       //   return MaterialPageRoute(
       //       builder: (BuildContext context) => const LoginView());

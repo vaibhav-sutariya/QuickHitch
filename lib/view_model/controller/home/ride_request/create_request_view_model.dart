@@ -127,6 +127,10 @@ class CreateRequestViewModel with ChangeNotifier {
           );
         } else {
           log("No matching rides found");
+          Navigator.pushNamed(
+            context,
+            RoutesName.noRideScreen,
+          );
         }
 
         Utils.flushBarSuccessMessage(
