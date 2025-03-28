@@ -24,6 +24,8 @@ import 'package:quick_hitch/repository/ride_repository/bookings/confirm_booking_
 import 'package:quick_hitch/repository/ride_repository/bookings/get_booking_request_repository.dart';
 import 'package:quick_hitch/repository/ride_repository/cancel_ride_repository.dart';
 import 'package:quick_hitch/repository/ride_repository/get_all_rides_repository.dart';
+import 'package:quick_hitch/repository/ride_request/create_ride_request_repository.dart';
+import 'package:quick_hitch/repository/ride_request/get_ride_request_details_repository.dart';
 import 'package:quick_hitch/view_model/controller/auth/forgot_password/forgot_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/auth/login/login_view_model.dart';
 import 'package:quick_hitch/view_model/controller/auth/register/register_view_model.dart';
@@ -37,6 +39,7 @@ import 'package:quick_hitch/view_model/controller/home/card_view_model/add_new_c
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/recent_search_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/ride_request/create_request_view_model.dart';
+import 'package:quick_hitch/view_model/controller/home/ride_request/get_ride_request_details_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/change_password/change_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/get_profile/get_user_profile_view_model.dart';
@@ -91,6 +94,10 @@ void main() async {
       () => CancelRideRepository());
   getIt.registerLazySingleton<ConfirmBookingRepository>(
       () => ConfirmBookingRepository());
+  getIt.registerLazySingleton<GetRideRequestDetailsRepository>(
+      () => GetRideRequestDetailsRepository());
+  getIt.registerLazySingleton<CreateRideRequestRepository>(
+      () => CreateRideRequestRepository());
   runApp(const MyApp());
 }
 
@@ -136,6 +143,7 @@ class MyApp extends StatelessWidget {
                 Provider.of<ThreeRideBookingReqToggleProvider>(context,
                     listen: false))),
         ChangeNotifierProvider(create: (_) => CreateRequestViewModel()),
+        ChangeNotifierProvider(create: (_) => GetRideRequestDetailsViewModel()),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',
