@@ -108,7 +108,7 @@ class CreateRequestViewModel with ChangeNotifier {
           await CreateRideRequestRepository().createRideRequest(data, token);
       // ✅ Check response status correctly
       if (response['status'] == 201 ||
-          response['message'] == "Ride created successfully") {
+          response['message'] == "Ride request created successfully") {
         log("Create Ride Request Successfully: $response");
         Utils.flushBarSuccessMessage(
             'Ride Request Created SuccessFully', context);

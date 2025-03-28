@@ -57,7 +57,7 @@ class SessionController {
   // Clear Session
   Future<void> clearSession() async {
     await sharedPreferenceClass.clearValue('userId');
-    // await sharedPreferenceClass.clearValue('token');
+    await sharedPreferenceClass.clearValue('token');
     await sharedPreferenceClass.clearValue('isLogin');
     isLogin = false;
   }
