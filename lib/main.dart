@@ -36,6 +36,7 @@ import 'package:quick_hitch/view_model/controller/bookings/get_booking_details_v
 import 'package:quick_hitch/view_model/controller/home/card_view_model/add_new_card_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/post_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/recent_search_view_model.dart';
+import 'package:quick_hitch/view_model/controller/home/ride_request/create_request_view_model.dart';
 import 'package:quick_hitch/view_model/controller/home/search_ride_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/change_password/change_password_view_model.dart';
 import 'package:quick_hitch/view_model/controller/profile/get_profile/get_user_profile_view_model.dart';
@@ -134,6 +135,7 @@ class MyApp extends StatelessWidget {
             create: (_) => GetRideBookingRequestViewModel(
                 Provider.of<ThreeRideBookingReqToggleProvider>(context,
                     listen: false))),
+        ChangeNotifierProvider(create: (_) => CreateRequestViewModel()),
       ],
       child: MaterialApp(
         title: 'Quick Hitch',

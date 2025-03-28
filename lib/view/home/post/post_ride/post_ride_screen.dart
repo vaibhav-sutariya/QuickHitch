@@ -147,9 +147,7 @@ class PostRideScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    SeatWidget(
-                        // oneProvider: viewModel,
-                        ),
+                    SeatWidget(),
                     SizedBox(height: 20),
                     VehicleDropdownView(),
                     Consumer<GetUserProfileViewModel>(

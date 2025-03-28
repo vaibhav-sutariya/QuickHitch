@@ -37,24 +37,29 @@ class _ExpandableFAB extends StatelessWidget {
             child: _FabOption(
               label: "Create Request",
               icon: Icons.edit_outlined,
-              onTap: () => Navigator.pushNamed(
-                  context, RoutesName.createRideRequestScreen),
+              onTap: () {
+                Navigator.pushNamed(
+                    context, RoutesName.createRideRequestScreen);
+                viewModel.toggle();
+              },
             ),
           ),
         ),
         const SizedBox(height: 10),
         AnimatedOpacity(
           opacity: viewModel.isExpanded ? 1.0 : 0.0,
-          duration: const Duration(milliseconds: 120),
+          duration: const Duration(milliseconds: 150),
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 120),
+            duration: const Duration(milliseconds: 150),
             transform:
                 Matrix4.translationValues(viewModel.isExpanded ? 0 : 50, 0, 0),
             child: _FabOption(
               label: "Create Ride",
               icon: Icons.directions_car_outlined,
-              onTap: () =>
-                  Navigator.pushNamed(context, RoutesName.postRideScreen),
+              onTap: () {
+                Navigator.pushNamed(context, RoutesName.postRideScreen);
+                viewModel.toggle();
+              },
             ),
           ),
         ),
@@ -64,7 +69,7 @@ class _ExpandableFAB extends StatelessWidget {
           backgroundColor: AppColors.primaryColor,
           shape: const CircleBorder(),
           child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 100),
             transitionBuilder: (Widget child, Animation<double> animation) {
               return ScaleTransition(scale: animation, child: child);
             },
