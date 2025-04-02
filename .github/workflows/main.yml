@@ -23,6 +23,13 @@ jobs:
         with:
           channel: "stable"
           architecture: x64
+        # Step to create .env file from GitHub Secrets
+      - name: Create .env file
+        run: |
+          echo "WEB_CLIENT_ID=${{ secrets.WEB_CLIENT_ID }}" >> .env
+          echo "GOOGLE_PLACES_API_KEY=${{ secrets.GOOGLE_PLACES_API_KEY }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+          echo "STRIPE_PUBLISHABLE_KEY=${{ secrets.STRIPE_PUBLISHABLE_KEY }}" >> .env
 
       - run: flutter build apk --release --split-per-abi
       - run: |
